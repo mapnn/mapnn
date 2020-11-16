@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.6)
+
+project(tengine)
+option(CONFIG_ARCH_ARM64 "build arm64 version" OFF)
+option(CONFIG_ARCH_ARM32 "build arm64 version" OFF)
+if (CONFIG_ARCH_ARM64)
+    add_definitions(-DCONFIG_ARCH_ARM64=1)
+endif()
+if (CONFIG_ARCH_ARM32)
+    add_definitions(-DCONFIG_ARCH_ARM32=1)
+endif()
+include(cmake/executor.cmake)
+set(can_use_assembler TRUE)
+enable_language(ASM)
+
+ADD_LIBRARY(tengine OBJECT)
+target_sources(tengine PRIVATE ${ARCH_LIB_CPP_SRCS} ${TARGET_ARCH_FILES})
+target_include_directories(tengine PUBLIC ${CMAKE_CURRENT_LIST_DIR}/)

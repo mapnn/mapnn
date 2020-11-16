@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.12)
+
+mapnn_config_map_begin(OptimalStage)
+
+mapnn_enable_map(x86_64/ncnn/map_conv1x1s1_sse.h                 ON)
+mapnn_enable_map(x86_64/ncnn/map_conv1x1s2_sse.h                 ON)
+mapnn_enable_map(x86_64/ncnn/map_conv3x3s1_sse.h                 ON)
+mapnn_enable_map(x86_64/ncnn/map_conv3x3s1_winograd23_sse.h      ON)
+mapnn_enable_map(x86_64/ncnn/map_conv3x3s2_sse.h                 ON)
+mapnn_enable_map(x86_64/ncnn/map_conv5x5s1_sse.h                 ON)
+mapnn_enable_map(x86_64/ncnn/map_conv_im2col_sgemm_sse.h         ON)
+mapnn_enable_map(x86_64/ncnn/map_convdw3x3s1_sse.h               ON)
+mapnn_enable_map(x86_64/ncnn/map_convdw3x3s2_sse.h               ON)
+mapnn_enable_map(cpu/mnn/map_ConvolutionTiledExecutorBasic.h  ON)
+mapnn_enable_map(cpu/mnn/map_ConvolutionTiledExecutorBasic2.h ON)
+mapnn_enable_map(cpu/mnn/map_ConvolutionWinogradF23.h         ON)
+mapnn_enable_map(cpu/mnn/map_ConvolutionWinogradF63.h         op.ic>=16&&op.oc>=16)
+mapnn_enable_map(cpu/mnn/map_ConvolutionDepthwise3x3.h        ON)
+mapnn_enable_map(cpu/mnn/map_convolution3x3_gemm.h            OFF)
+
+mapnn_config_map_end(optimal_stage.h)

@@ -1,0 +1,14 @@
+#pragma once
+
+@mapnn_include_file@
+
+class @mapnn_class_name@{
+private:
+public:
+    std::vector<Map*> maps = {
+        @mapnn_enable_name@
+    };                                                            
+    ~@mapnn_class_name@() {
+        for(Map* m : maps) if(m != NULL) delete m;
+    }
+};

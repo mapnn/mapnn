@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Large file
+*.swp
+*.dot
+*.png
+
