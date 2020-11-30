@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefDropout::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Dropout dropout(op);
     L1CHW input(ins[0]); 
@@ -28,4 +29,5 @@ void RefDropout::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op
         }
     }
 
+}
 }

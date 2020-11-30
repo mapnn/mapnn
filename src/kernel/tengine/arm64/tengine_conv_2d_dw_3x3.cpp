@@ -15,6 +15,7 @@
 
 #include "tengine_kernel.h"
 #include <executor/operator/arm64/conv/conv_depthwise/conv_2d_dw_3x3.h>
+namespace mapnn {
 void tengine_conv_2d_dw_3x3::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW output(out); 
@@ -23,4 +24,5 @@ void tengine_conv_2d_dw_3x3::run(const Tensors& ins, Tensor& out, Tensors& tmp, 
     L111W bias(ins[2]);
     TEngine::conv_2d_dw_3x3::DirectConv(input.data, input.h, input.w, output.data, output.h,
             output.w, weight.data, input.c, conv.hstride, bias.data, 0, TYPE_A53, -1);
+}
 }

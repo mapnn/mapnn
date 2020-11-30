@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_transpose);
 
+namespace mapnn {
 inline bool map_ref_transpose::request(Operator& op) {
     return op.type == OpType_Transpose;
 }
 inline bool map_ref_transpose::run(Graph* graph, Node* node) {
     node->setKernel(new RefTranspose());
     return true;
+}
 }

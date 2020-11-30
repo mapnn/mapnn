@@ -14,7 +14,9 @@
  */
 
 #include "node.h"
+#include "log.h"
 
+namespace mapnn {
 Node::Node(const string& name, Tensor& tensor):Node(name) {
     output_ = tensor;
     isConst_ = true;
@@ -74,11 +76,10 @@ void Node::initTensor(bool setShape) {
     for(auto it = cst_->begin(); it != cst_->end(); ++it) {
         inputs[count++] = (*it)->getTensor();
     }
-    if(kr_ == NULL) { fprintf(stderr, "Please  implement %s(%d)\n", name(), op_.type); exit(-1); } // TODO assert
+    if(kr_ == NULL) { LOGE("Please  implement %s(%d)\n", name(), op_.type); exit(-1); } // TODO assert
     kr_->init(inputs, output_, temps_, op_);
-#ifdef __OP_DEBUG__
-    printf("init[%5s]\t%-30s => (%d %d %d %d)\n", output_.valid()?"valid":"no", name(), output_.u(), output_.v(), output_.a(), output_.b());
-#endif
+    LOGDG("init[%5s]\t%-30s => (%d %d %d %d)\n", output_.valid()?"valid":"no", 
+        name(), output_.u(), output_.v(), output_.a(), output_.b());
     if(setShape) {
         LNCHW input(inputs[0]);
         LNCHW output(output_);
@@ -108,9 +109,8 @@ void Node::initTensor(Tensor& t, bool setShape) {
         inputs[count++] = (*it)->getTensor();
     }
     kr_->init(inputs, output_, temps_, op_);
-#ifdef __OP_DEBUG__
-    printf("init[%5s]\t%-30s => (%d %d %d %d)\n", output_.valid()?"valid":"no", name(), output_.u(), output_.v(), output_.a(), output_.b());
-#endif
+    LOGDG("init[%5s]\t%-30s => (%d %d %d %d)\n", output_.valid()?"valid":"no",
+         name(), output_.u(), output_.v(), output_.a(), output_.b());
     if(setShape) {
         LNCHW input(inputs[0]);
         LNCHW output(output_);
@@ -142,10 +142,8 @@ void Node::run()
         inputs[count++] = ((*it)->getTensor());
     }
     kr_->run(inputs, output_, temps_, op_);
-#ifdef __OP_DEBUG__
-    printf("run [%5s]\t%-30s(%d) => (%d %d %d %d)\n", output_.valid()?"valid":"no",
+    LOGDG("run [%5s]\t%-30s(%d) => (%d %d %d %d)\n", output_.valid()?"valid":"no",
             name(), op_.type, output_.u(), output_.v(), output_.a(), output_.b());
-#endif
 #ifdef PRINT_TENSOR
     std::string n(name()); 
     if(n.find('/') != string::npos) { 
@@ -209,10 +207,8 @@ void Node::run(Tensor& input)
         inputs[count++] = ((*it)->getTensor());
     }
     kr_->run(inputs, output_, temps_, op_);
-#ifdef __OP_DEBUG__
-    printf("run [%5s]\t%-30s(%d) => (%d %d %d %d)\n", output_.valid()?"valid":"no",
+    LOGDG("run [%5s]\t%-30s(%d) => (%d %d %d %d)\n", output_.valid()?"valid":"no",
             name(), op_.type, output_.u(), output_.v(), output_.a(), output_.b());
-#endif
 #ifdef PRINT_TENSOR
     std::string n(name()); 
     if(n.find('/') != string::npos) { 
@@ -408,4 +404,5 @@ Node* Node::sik_remove(size_t pos) {
         sik_sik->src_extend(this, POSITION_FRONT);
     }
     return back;
+}
 }

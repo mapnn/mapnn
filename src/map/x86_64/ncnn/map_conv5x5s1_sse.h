@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv5x5s1_sse);
 
+namespace mapnn {
 inline bool map_conv5x5s1_sse::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 5     &&
@@ -31,4 +32,5 @@ inline bool map_conv5x5s1_sse::request(Operator& op) {
 inline bool map_conv5x5s1_sse::run(Graph* graph, Node* node) {
     node->setKernel(new ncnn_conv5x5s1_sse());
     return true;
+}
 }

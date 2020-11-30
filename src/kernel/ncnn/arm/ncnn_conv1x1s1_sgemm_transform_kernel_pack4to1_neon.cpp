@@ -15,6 +15,7 @@
 
 #include "ncnn_kernel.h"
 #include <layer/arm/conv1x1s1_sgemm_transform_kernel_pack4to1_neon.h>
+namespace mapnn {
 void ncnn_conv1x1s1_sgemm_transform_kernel_pack4to1_neon::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     LUVA4 output(out);
@@ -42,4 +43,5 @@ void ncnn_conv1x1s1_sgemm_transform_kernel_pack4to1_neon::run(const Tensors& ins
     const ncnn::Mat bottom_blob(input.w, input.data, 4u, 1);
     ncnn::Mat top_blob(output.a4/4, output.v, output.u, output.data, 4u*4, 4);
     ncnn::conv1x1s1_sgemm_transform_kernel_pack4to1_neon(bottom_blob, top_blob, inch, outch);
+}
 }

@@ -17,6 +17,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv3x3s2_packed_neon);
 
+namespace mapnn {
 inline bool map_conv3x3s2_packed_neon::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
@@ -35,4 +36,5 @@ inline bool map_conv3x3s2_packed_neon::run(Graph* graph, Node* node) {
     node->setKernel(new ncnn_conv3x3s2_packed_neon());
     node->cst_insert(weight);
     return true;
+}
 }

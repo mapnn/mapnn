@@ -17,6 +17,7 @@
 
 DECLARE_KERNEL_MAP(map_pad_deconv);
 
+namespace mapnn {
 inline bool map_pad_deconv::request(Operator& op) {
     return op.type == OpType_ConvTranspose;
 }
@@ -40,4 +41,5 @@ inline bool map_pad_deconv::run(Graph* graph, Node* node) {
     node->setKernel(new RefConvTranspose());
     return true;
 
+}
 }

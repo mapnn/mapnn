@@ -25,6 +25,8 @@
 
 using namespace MNN;
 using namespace MNN::Math;
+
+namespace mapnn {
 typedef Vec4 float4;
 static void _multiAndDestTransformCommon(float **cacheLine, const float *weigth, float *dest, int cacheLineSize,
                                          int ow) {
@@ -265,4 +267,5 @@ void mnn_ConvolutionDepthwise3x3::run(const Tensors& ins, Tensor& out, Tensors& 
         }
         MNN_CONCURRENCY_END();
     }
+}
 }

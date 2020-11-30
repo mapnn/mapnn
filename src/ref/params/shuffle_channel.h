@@ -17,6 +17,7 @@
 #define __MAPNN_SHUFFLE_CHANNEL_H__
 #include "operator.h"
 
+namespace mapnn {
 class ShuffleChannel {
 public:
     enum OP_TYPE {
@@ -28,5 +29,6 @@ public:
 };
 inline ShuffleChannel::ShuffleChannel(const Operator& op){
     group = op[GROUP].f;
+}
 }
 #endif // __MAPNN_SHUFFLE_CHANNEL_H__

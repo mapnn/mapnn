@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_tengine_conv_2d_wino);
 
+namespace mapnn {
 inline bool map_tengine_conv_2d_wino::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
@@ -36,4 +37,5 @@ inline bool map_tengine_conv_2d_wino::run(Graph* graph, Node* node) {
     node->setKernel(new tengine_conv_2d_wino());
     node->cst_insert(weight);
     return true;
+}
 }

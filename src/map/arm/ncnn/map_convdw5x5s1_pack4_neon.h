@@ -17,6 +17,7 @@
 
 DECLARE_OPTIMAL_MAP(map_convdw5x5s1_pack4_neon);
 
+namespace mapnn {
 inline bool map_convdw5x5s1_pack4_neon::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 5     &&
@@ -45,4 +46,5 @@ inline bool map_convdw5x5s1_pack4_neon::run(Graph* graph, Node* node) {
     node->cst_insert(w_pack);
     node->sik_insert(o_pack);
     return true;
+}
 }

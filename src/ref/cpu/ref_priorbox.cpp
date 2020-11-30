@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefNop::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     LUVAB input(ins[0]); 
     LUVAB output(out); 
@@ -239,4 +240,5 @@ void RefNop::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     }
     */
 
+}
 }

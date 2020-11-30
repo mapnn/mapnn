@@ -17,6 +17,7 @@
 /*#include "ncnn_kernel.h"
 #include <layer/arm/conv1x1s1_sgemm_pack4to1_neon_sgemm.h>
 #include "conv.h"
+namespace mapnn {
 void ncnn_conv1x1s1_sgemm_pack4to1_neon_sgemm::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW output(out);
@@ -45,5 +46,6 @@ void ncnn_conv1x1s1_sgemm_pack4to1_neon_sgemm::run(const Tensors& ins, Tensor& o
     ncnn::Mat top_blob(output.w, output.h, output.c, output.data, 4u, 1);
     ncnn::Option opt;
     ncnn::conv1x1s1_sgemm_pack4to1_neon_sgemm(bottom_blob, top_blob, kernel, _bias, opt, inch/4, outw, outh, outch);
+}
 }
 */

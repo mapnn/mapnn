@@ -25,6 +25,7 @@
 #include "bctime.h"
 
 #include "hypothesis_test.h"
+using namespace mapnn;
 
 class test {
 protected:

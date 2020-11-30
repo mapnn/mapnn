@@ -20,6 +20,8 @@
 #include "node.h"
 #include "graph.h"
 
+using namespace mapnn;
+
 class layer_debug{
 public: 
     void print(const char* name, Tensor t);

@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefConcat::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW output(out); 
     L1CHW input(ins[0]); 
@@ -21,8 +22,8 @@ void RefConcat::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op
     output.h = input.h;
     output.w = input.w;
     for(size_t i = 1; i < ins.size(); i++) {
+        if(ins[i].empty()) continue;
         L1CHW input(ins[i]); 
-        if(input.chw <= 0) continue;
         output.c += input.c;
     }
 }
@@ -30,10 +31,11 @@ void RefConcat::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op)
     L1CHW output(out); 
     float* outptr = output.data;
     for(size_t i = 0; i < ins.size(); i++) {
+        if(ins[i].empty()) continue;
         L1CHW input(ins[i]); 
-        if(input.chw <= 0) continue;
         const float* inptr = input.data; 
         memcpy(outptr, inptr, input.chw*sizeof(float));
         outptr += input.chw;
     }
+}
 }

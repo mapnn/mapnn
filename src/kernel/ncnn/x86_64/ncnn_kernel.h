@@ -17,7 +17,7 @@
 
 #include "reference.h"
 // x86
-#ifdef MCNN_USE_SSE
+#ifdef MAPNN_USE_SSE
 #include <immintrin.h>
 DECLARE_KERNEL(ncnn_conv3x3s1_winograd23_sse)
 DECLARE_KERNEL(ncnn_conv3x3s1_winograd23_transform_kernel_sse)

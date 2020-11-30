@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefBias::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     L111W b(ins[1]); 
@@ -28,4 +29,5 @@ void RefBias::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
                 *outptr++ = *ptr++ + bias;
         }
     }
+}
 }

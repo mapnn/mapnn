@@ -21,6 +21,7 @@
 
 #define TILE 4
 
+namespace mapnn {
 void tengine_conv_2d_wino_1::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW input(ins[0]); 
@@ -140,4 +141,5 @@ void tengine_conv_2d_wino_1::run(const Tensors& ins, Tensor& out, Tensors& tmp, 
                 resi_w, activation);
 
     }
+}
 }

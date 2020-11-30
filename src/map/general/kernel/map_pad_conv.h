@@ -18,6 +18,7 @@
 
 DECLARE_KERNEL_MAP(map_pad_conv);
 
+namespace mapnn {
 inline bool map_pad_conv::request(Operator& op) {
     return op.type == OpType_Conv;
 }
@@ -44,4 +45,5 @@ inline bool map_pad_conv::run(Graph* graph, Node* node) {
     }
     node->setKernel(new RefConv(), op);
     return true;
+}
 }

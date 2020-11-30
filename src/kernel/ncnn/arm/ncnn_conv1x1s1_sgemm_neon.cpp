@@ -17,6 +17,7 @@
 #include <layer/arm/conv1x1s1_sgemm_neon_interleave.h>
 #include <layer/arm/conv1x1s1_sgemm_neon_sgemm.h>
 
+namespace mapnn {
 void ncnn_conv1x1s1_sgemm_neon::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW input(ins[0]);
@@ -63,4 +64,5 @@ void ncnn_conv1x1s1_sgemm_neon::run(const Tensors& ins, Tensor& out, Tensors& tm
         ncnn::conv1x1s1_sgemm_neon_sgemm(bottom_blob, top_blob, kernel, _bias, opt, 
                 output.w, output.h, input.c, output.c);
     }
+}
 }

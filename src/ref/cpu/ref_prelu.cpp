@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefPRelu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     L111W slope(ins[1]); 
@@ -30,4 +31,5 @@ void RefPRelu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) 
             outptr++;
         }
     }
+}
 }

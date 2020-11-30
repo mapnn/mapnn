@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_scale);
 
+namespace mapnn {
 inline bool map_ref_scale::request(Operator& op) {
     return op.type == OpType_Scale;
 }
 inline bool map_ref_scale::run(Graph* graph, Node* node) {
     node->setKernel(new RefScale());
     return true;
+}
 }

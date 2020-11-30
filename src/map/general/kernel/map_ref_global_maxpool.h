@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_global_maxpool);
 
+namespace mapnn {
 inline bool map_ref_global_maxpool::request(Operator& op) {
     return op.type == OpType_GlobalMaxPool;
 }
 inline bool map_ref_global_maxpool::run(Graph* graph, Node* node) {
     node->setKernel(new RefGlobalMaxPool());
     return true;
+}
 }

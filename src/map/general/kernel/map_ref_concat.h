@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_concat);
 
+namespace mapnn {
 inline bool map_ref_concat::request(Operator& op) {
     return op.type == OpType_Concat;
 }
 inline bool map_ref_concat::run(Graph* graph, Node* node) {
     node->setKernel(new RefConcat());
     return true;
+}
 }

@@ -2,6 +2,7 @@
 
 @mapnn_include_file@
 
+namespace mapnn {
 class @mapnn_class_name@{
 private:
 public:
@@ -12,3 +13,4 @@ public:
         for(Map* m : maps) if(m != NULL) delete m;
     }
 };
+}

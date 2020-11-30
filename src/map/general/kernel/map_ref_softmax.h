@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_softmax);
 
+namespace mapnn {
 inline bool map_ref_softmax::request(Operator& op) {
     return op.type == OpType_Softmax;
 }
 inline bool map_ref_softmax::run(Graph* graph, Node* node) {
     node->setKernel(new RefSoftmax());
     return true;
+}
 }

@@ -17,6 +17,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class LRN {
 public:
     enum NormRegion {
@@ -43,5 +44,6 @@ inline LRN::LRN(const Operator& op){
     local_size  = op[LOCAL_SIZE].i;
     norm_region = op[NORM_REGION].i;
 
+}
 }
 #endif // __MAPNN_LRN_H__

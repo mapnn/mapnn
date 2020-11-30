@@ -25,9 +25,11 @@
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/message.h>
 
+#include "log.h"
 #include "graph.h"
 #include "reference.h"
 
+namespace mapnn {
 using caffe::NetParameter;
 CaffeModel::CaffeModel() {
     m_prototxt   = new NetParameter();
@@ -42,7 +44,7 @@ int CaffeModel::load(const char* prototxt, const char* model) {
     {
         std::ifstream fs(prototxt, std::ifstream::in);
         if (!fs.is_open()) {
-            fprintf(stderr, "open failed %s\n", prototxt);
+            LOGE("open failed %s\n", prototxt);
             return false;
         }
         google::protobuf::io::IstreamInputStream input(&fs);
@@ -54,7 +56,7 @@ int CaffeModel::load(const char* prototxt, const char* model) {
     {
         std::ifstream fs(model, std::ifstream::in | std::ifstream::binary);
         if (!fs.is_open()) {
-            printf("open failed %s\n", model);
+            LOGE("open failed %s\n", model);
             return false;
         }   
         google::protobuf::io::IstreamInputStream input(&fs);
@@ -96,10 +98,10 @@ int CaffeModel::draw(Graph* graph) {
             graph->createNode(name, op);
         }
         else if(layer.type() == "Bias") {
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "BNLL") { 
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "BatchNorm") {
             Operator op(OpType_BatchNormalization);
@@ -138,7 +140,7 @@ int CaffeModel::draw(Graph* graph) {
                 int offset = cropProto.offset(0);
                 int axis = cropProto.axis();
                 if (axis == 1) {
-                    fprintf(stderr, "Crop not support corp c\n");
+                    LOGE("Crop not support corp c\n");
                 }
                 else if (axis == 2) {
                     op[Crop::WCROP0].i = offset;
@@ -153,7 +155,7 @@ int CaffeModel::draw(Graph* graph) {
                 op[Crop::HCROP0].i = cropProto.offset(0);
             }
             else if (num_offset == 3) {
-                fprintf(stderr, "Crop not support corp c\n");
+                LOGE("Crop not support corp c\n");
             }
             graph->createNode(name, op);
         }
@@ -286,7 +288,7 @@ int CaffeModel::draw(Graph* graph) {
             }
         }
         else if(layer.type() == "DetectionOutput") {
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "Exp") {
             Operator op(OpType_Exp);
@@ -360,7 +362,7 @@ int CaffeModel::draw(Graph* graph) {
             graph->createNode(name, op);
         }
         else if(layer.type() == "Normalize") {
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "Power") {
             const caffe::PowerParameter& powerProto = layer.power_param();
@@ -404,7 +406,7 @@ int CaffeModel::draw(Graph* graph) {
                     op = Operator(OpType_GlobalAveragePool);
                 }
                 else if(poolP.pool() == caffe::PoolingParameter::MAX) {
-                    fprintf(stderr, "POOL ERROR\n");
+                    LOGE("POOL ERROR\n");
                 }
             }
             else {
@@ -434,10 +436,10 @@ int CaffeModel::draw(Graph* graph) {
             graph->createNode(name, op);
         }
         else if(layer.type() == "Embed") {
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "Reduction") { 
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "ReLU") {
             Operator op(OpType_Relu);
@@ -535,7 +537,7 @@ int CaffeModel::draw(Graph* graph) {
             graph->createNode(name, op);
         }
         else if(layer.type() == "ROIPooling") {
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "Dropout") {
             Operator op(OpType_Dropout);
@@ -617,7 +619,7 @@ int CaffeModel::draw(Graph* graph) {
             graph->createNode(name, op);
         }
         else if(layer.type() == "Threshold") { 
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         else if(layer.type() == "Input") {
             const caffe::InputParameter& inputP = layer.input_param();
@@ -644,7 +646,7 @@ int CaffeModel::draw(Graph* graph) {
             }
         }
         else {
-            fprintf(stderr, "Not support %s\n", layer.type().c_str());
+            LOGE("Not support %s\n", layer.type().c_str());
         }
         if(layer.bottom_size() == 1 && layer.top_size() == 1 &&
                 layer.bottom(0) == layer.top(0)) {
@@ -683,10 +685,12 @@ int CaffeModel::draw(Graph* graph) {
             //    std::string top = layer.top(t);
             //    graph->link(bottom, top);
             //}
+            LOGE("link ERROR\n");
         }
         else {
-            fprintf(stderr, "link ERROR\n");
+            LOGE("link ERROR\n");
         }
     }
     return 0;
+}
 }

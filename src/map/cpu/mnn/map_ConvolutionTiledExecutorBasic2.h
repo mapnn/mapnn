@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_ConvolutionTiledExecutorBasic2);
 
+namespace mapnn {
 inline bool map_ConvolutionTiledExecutorBasic2::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
@@ -42,4 +43,5 @@ inline bool map_ConvolutionTiledExecutorBasic2::run(Graph* graph, Node* node) {
     node->cst_insert(w_pack);
     node->sik_insert(o_pack);
     return true;
+}
 }

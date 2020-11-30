@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefRelu6::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     L1CHW output(out); 
@@ -30,4 +31,5 @@ void RefRelu6::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) 
             }
         }
     }
+}
 }

@@ -25,8 +25,8 @@
 
 using namespace MNN;
 using namespace MNN::Math;
+namespace mapnn {
 typedef Vec4 float4;
-
 static void _sourceTransformUnit4x4(const float* srcBlock, float* dstStart, size_t srcStep, size_t dstStep) {
     Vec4 s0 = Vec4::load(srcBlock + 0 * srcStep);
     Vec4 s1 = Vec4::load(srcBlock + 1 * srcStep);
@@ -276,4 +276,5 @@ void mnn_ConvolutionWinogradF23::run(const Tensors& ins, Tensor& out, Tensors& t
         }
         MNN_CONCURRENCY_END();
     }
+}
 }

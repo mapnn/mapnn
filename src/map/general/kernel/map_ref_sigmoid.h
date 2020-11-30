@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_sigmoid);
 
+namespace mapnn {
 inline bool map_ref_sigmoid::request(Operator& op) {
     return op.type == OpType_Sigmoid;
 }
 inline bool map_ref_sigmoid::run(Graph* graph, Node* node) {
     node->setKernel(new RefSigmoid());
     return true;
+}
 }

@@ -14,7 +14,7 @@
  */
 
 #include "reference.h"
-#include "conv.h"
+namespace mapnn {
 void RefConv::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW input(ins[0]); 
@@ -27,8 +27,6 @@ void RefConv::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) 
 }
 void RefConv::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
-    printf("warning! use ref conv %d,%d,%d, %d %d\n", 
-            conv.outch, conv.inch, conv.wkernel, conv.wstride, conv.g);
     L1CHW output(out); 
     L1CHW input(ins[0]); 
     L111W weight(ins[1]); 
@@ -76,4 +74,5 @@ void RefConv::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             }
         }
     }
+}
 }

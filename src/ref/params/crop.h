@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Crop {
 public:
     enum OP_TYPE {
@@ -44,5 +45,6 @@ inline Crop::Crop(const Operator& op){
     wcrop1 = op[WCROP1].i;
     hcrop1 = op[HCROP1].i;
     ccrop1 = op[CCROP1].i;
+}
 }
 #endif // __MAPNN_CROP_H__

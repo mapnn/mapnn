@@ -27,6 +27,7 @@
 using namespace MNN;
 using namespace MNN::Math;
 
+namespace mapnn {
 void mnn_transformWeightF63::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     LUVAB output(out);
@@ -101,4 +102,5 @@ void mnn_transformWeightF63::run(const Tensors& ins, Tensor& out, Tensors& tmp, 
     int ic4 = UP_DIV(ci, 4);
     int oc4 = UP_DIV(co, 4);
     MNNReorder4x4ByPlatform(output.data, ic4 * oc4 * alpha2);
+}
 }

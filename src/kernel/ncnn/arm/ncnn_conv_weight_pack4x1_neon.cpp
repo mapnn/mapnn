@@ -15,6 +15,7 @@
 
 #include "ncnn_kernel.h"
 #include <layer/arm/conv_weight_pack4x1_neon.h>
+namespace mapnn {
 void ncnn_conv_weight_pack4x1_neon::init(const Tensors& /*ins*/, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     LUVA4 output(out);
@@ -34,4 +35,5 @@ void ncnn_conv_weight_pack4x1_neon::run(const Tensors& ins, Tensor& out, Tensors
     ncnn::Mat top_blob(output.a4/4, output.v, output.u, output.data, 4u*4, 4);
     ncnn::Option opt;
     ncnn::conv_weight_pack4x1_neon(bottom_blob, top_blob, opt, conv.outch, conv.inch, maxk);
+}
 }

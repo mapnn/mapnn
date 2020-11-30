@@ -27,6 +27,8 @@
 #include "net.h"
 #include "bctime.h"
 
+using namespace mapnn;
+
 void printHelp() {
     printf(
             "Usage : modeltest -m model -i image [Option]\n"

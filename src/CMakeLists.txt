@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
+
 add_subdirectory(flat)
 add_subdirectory(utils)
 add_subdirectory(ref)
@@ -11,3 +12,4 @@ add_subdirectory(net)
 add_subdirectory(tools/layer_test)
 add_subdirectory(tools/layer_debug)
 add_subdirectory(tools/net_test)
+add_subdirectory(tools/model_test)

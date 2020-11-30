@@ -22,9 +22,9 @@
 
 using std::list;
 
+namespace mapnn {
 class Map;
-class Graph
-{
+class Graph {
 private:
     list<Node*> nodes_;
     list<Node*> sorts_;
@@ -70,4 +70,5 @@ public:
     int inferSideRoad();
     int inferMainRoad(Tensor& input);
 };
+}
 #endif // __MAPNN_GRAPH_H__

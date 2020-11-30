@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Clip {
 public:
     enum OP_TYPE {
@@ -31,5 +32,6 @@ public:
 inline Clip::Clip(const Operator& op){
     max = op[MAX].f;
     min = op[MIN].f;
+}
 }
 #endif // __MAPNN_CLIP_H__

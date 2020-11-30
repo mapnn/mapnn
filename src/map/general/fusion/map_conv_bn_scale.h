@@ -18,6 +18,7 @@
 
 DECLARE_FUSION_MAP(map_conv_bn_scale);
 
+namespace mapnn {
 inline bool map_conv_bn_scale::request(Operator& op) {
     return op.type == OpType_Conv;
 }
@@ -91,4 +92,5 @@ inline bool map_conv_bn_scale::run(Graph* graph, Node* node) {
     graph->releaseNode(scale);
     graph->releaseNode(bias);
     return false;
+}
 }

@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.0)
 # CMP0048 is related to letting CMake managing the package version for us
-add_definitions(-Wno-sign-compare)
-add_definitions(-Wno-strict-aliasing)
-add_definitions(-Wno-unused-variable)
+
+if(NOT MSVC)
+    add_definitions(-Wno-sign-compare)
+    add_definitions(-Wno-strict-aliasing)
+    add_definitions(-Wno-unused-variable)
+endif()
+
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include/
                     ${CMAKE_CURRENT_LIST_DIR}/source/
                   )
@@ -12,8 +16,8 @@ set(MNN_TARGETS "")
 
 # Core
 FILE(GLOB MNN_Core_SRC ${CMAKE_CURRENT_LIST_DIR}/source/core/*)
-add_library(MNNCore OBJECT ${MNN_Core_SRC})
-list(APPEND MNN_OBJECTS_TO_LINK $<TARGET_OBJECTS:MNNCore>)
+add_library(MNNCore INTERFACE)
+#list(APPEND MNN_OBJECTS_TO_LINK $<TARGET_OBJECTS:MNNCore>)
 list(APPEND MNN_TARGETS MNNCore)
 
 # Math

@@ -15,6 +15,7 @@
 
 #include "ncnn_kernel.h"
 #include <layer/arm/conv3x3s2_pack1to4_neon.h>
+namespace mapnn {
 void ncnn_conv3x3s2_pack1to4_neon::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW input(ins[0]); 
@@ -37,4 +38,5 @@ void ncnn_conv3x3s2_pack1to4_neon::run(const Tensors& ins, Tensor& out, Tensors&
     ncnn::Mat top_blob(output.w4/4, output.h, output.c, output.data, 4*4u, 4);
     ncnn::Option opt;
     ncnn::conv3x3s2_pack1to4_neon(bottom_blob, top_blob, kernel, _bias, opt);
+}
 }

@@ -22,6 +22,6 @@
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
-#define MCNN_UNUSED __attribute__((unused))
+#define MAPNN_UNUSED __attribute__((unused))
 
 #endif // __MAPNN_MACRO_H__

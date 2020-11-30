@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_mvn);
 
+namespace mapnn {
 inline bool map_ref_mvn::request(Operator& op) {
     return op.type == OpType_MVN;
 }
 inline bool map_ref_mvn::run(Graph* graph, Node* node) {
     node->setKernel(new RefMVN());
     return true;
+}
 }

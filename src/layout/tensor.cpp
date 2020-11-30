@@ -28,6 +28,7 @@
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
+namespace mapnn {
 size_t get_unit_from_data_type(DataType dtype) { 
     switch(dtype) {
         case UINT8:
@@ -56,7 +57,6 @@ Tensor::Tensor(const Tensor& t, const void* data):
     size_t unit = get_unit_from_data_type(dtype_);
     length_ = u_ * v_ * a_ * b_ * unit;
     ltype_  = t.ltype_;
-    //printf("%d %d %d %d == %d %d %d %d\n", t.u_, t.v_, t.a_, t.b_, u_, v_, a_, b_);
 }
 
 Tensor::Tensor(int u, int v, int a, int b, DataType type, const void* data):
@@ -162,9 +162,13 @@ void Tensor::fill(float v) {
         *p++ = v;
     }
 }
-bool Tensor::valid() { 
+bool Tensor::valid() const { 
     size_t unit = get_unit_from_data_type(dtype_);
     return (u_*v_*a_*b_*unit<=length_)&&(u_*v_*a_*b_*unit!=0); 
+}
+bool Tensor::empty() const { 
+    size_t unit = get_unit_from_data_type(dtype_);
+    return u_*v_*a_*b_*unit==0; 
 }
 const int Tensor::size() const {
     return u_*v_*a_*b_;
@@ -173,7 +177,7 @@ const size_t Tensor::length() const {
     size_t unit = get_unit_from_data_type(dtype_);
     return u_*v_*a_*b_*unit; 
 }
-
+}
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop

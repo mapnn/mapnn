@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_max);
 
+namespace mapnn {
 inline bool map_ref_max::request(Operator& op) {
     return op.type == OpType_Max;
 }
 inline bool map_ref_max::run(Graph* graph, Node* node) {
     node->setKernel(new RefMax());
     return true;
+}
 }

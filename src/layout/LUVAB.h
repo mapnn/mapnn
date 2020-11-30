@@ -16,7 +16,9 @@
 #ifndef __MAPNN_LUVAB_H__
 #define __MAPNN_LUVAB_H__
 
+#include "log.h"
 #include "type.h"
+namespace mapnn {
 class LUVAB{
 private:
     void create(const Tensor& t);
@@ -47,7 +49,7 @@ inline LUVAB::LUVAB(const Tensor& t){
 
 inline LUVAB::~LUVAB() { 
     if(ft!=NULL) {
-        if(u*v*a*b == 0) printf("[ERROR] empty layout. \n");
+        if(u*v*a*b == 0) LOGE("[ERROR] empty layout. \n");
         ft->setShape(u, v, a, b);
         ft->setLayout(layout);
     } 
@@ -61,5 +63,6 @@ inline void LUVAB::create(const Tensor& t) {
     ab      = a*b;
     vab     = v*ab;
     uvab     = u*vab;
+}
 }
 #endif // __MAPNN_LUVAB_H__

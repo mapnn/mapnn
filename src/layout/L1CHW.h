@@ -17,6 +17,7 @@
 #define __MAPNN_L1CHW_H__
 
 #include "LUVAB.h"
+namespace mapnn {
 class L1CHW : protected LUVAB{
 private:
     void create(const Tensor& t);
@@ -36,7 +37,7 @@ inline L1CHW::L1CHW(Tensor& t): LUVAB(t) {
 }
 inline L1CHW::L1CHW(const Tensor& t): LUVAB(t) {
     create(t);
-    if(!check()) printf("[ERROR] layout: L_1CHW\n");
+    if(!check()) LOGE("[ERROR] layout: L_1CHW\n");
 }
 inline L1CHW::~L1CHW() { 
     LUVAB::u = 1;
@@ -62,5 +63,6 @@ inline bool L1CHW::check() {
 inline bool L1CHW::check(const Tensor& t) {
     L1CHW l(t);
     return l.check();
+}
 }
 #endif // __MAPNN_L1CHW_H__

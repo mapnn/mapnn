@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_min);
 
+namespace mapnn {
 inline bool map_ref_min::request(Operator& op) {
     return op.type == OpType_Min;
 }
 inline bool map_ref_min::run(Graph* graph, Node* node) {
     node->setKernel(new RefMin());
     return true;
+}
 }

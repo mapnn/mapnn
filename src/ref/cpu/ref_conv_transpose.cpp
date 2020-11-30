@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefConvTranspose::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW input(ins[0]); 
@@ -74,4 +75,5 @@ void RefConvTranspose::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operat
             }
         }
     }
+}
 }

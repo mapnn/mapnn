@@ -18,10 +18,10 @@
 
 #include "reference.h"
 // x86
-#ifdef MCNN_USE_SSE
+#ifdef MAPNN_USE_SSE
 #include <immintrin.h>
 #define MNN_USE_SSE
-#elif defined(MCNN_USE_NEON32) || defined(MCNN_USE_NEON64)
+#elif defined(MAPNN_USE_NEON32) || defined(MAPNN_USE_NEON64)
 #include <arm_neon.h>
 #define MNN_USE_NEON
 #else

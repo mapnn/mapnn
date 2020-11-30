@@ -15,6 +15,7 @@
 
 #include "ncnn_kernel.h"
 #include <layer/x86/conv3x3s1_winograd23_transform_kernel_sse.h>
+namespace mapnn {
 void ncnn_conv3x3s1_winograd23_transform_kernel_sse::init(const Tensors& /*ins*/, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1VAB output(out);
@@ -33,4 +34,5 @@ void ncnn_conv3x3s1_winograd23_transform_kernel_sse::run(const Tensors& ins, Ten
     const ncnn::Mat bottom_blob(1, 1, input.w, input.data, 4u, 1);
     ncnn::Mat top_blob(output.a, output.v, output.u, output.data, 4u, 1);
     ncnn::conv3x3s1_winograd23_transform_kernel_sse(bottom_blob, top_blob, inch, outch);
+}
 }

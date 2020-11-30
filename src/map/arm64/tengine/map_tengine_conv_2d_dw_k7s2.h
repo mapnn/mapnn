@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_tengine_conv_2d_dw_k7s2);
 
+namespace mapnn {
 inline bool map_tengine_conv_2d_dw_k7s2::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 7     &&
@@ -34,4 +35,5 @@ inline bool map_tengine_conv_2d_dw_k7s2::run(Graph* graph, Node* node) {
     Operator op = node->getOp();
     node->setKernel(new tengine_conv_2d_dw_k7s2());
     return true;
+}
 }

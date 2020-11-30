@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
+#include "log.h"
 #include "reference.h"
+namespace mapnn {
 void RefTranspose::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     LNCHW input(ins[0]); 
     LNCHW output(out); 
@@ -54,6 +56,12 @@ void RefTranspose::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator&
         output.h = input.c;
         output.w = input.h;
     }
+    else if(transpose.n==1&&transpose.c==3&&transpose.h==4&&transpose.w==2) {
+        output.n = input.n;
+        output.c = input.h;
+        output.h = input.w;
+        output.w = input.c;
+    }
     else if(transpose.n==2&&transpose.c==1&&transpose.h==3&&transpose.w==4) {
         output.n = input.c;
         output.c = input.n;
@@ -61,7 +69,7 @@ void RefTranspose::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator&
         output.w = input.w;
     }
     else {
-        printf("error\n");
+        LOGE("error %d %d %d %d\n", transpose.n, transpose.c, transpose.h, transpose.w);
     }
 }
 void RefTranspose::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
@@ -129,6 +137,19 @@ void RefTranspose::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& 
             }
         }
     }
+    else if(transpose.n==1&&transpose.c==3 && transpose.h==4 && transpose.w==2) {
+        for(int on = 0; on < output.n; on++) {
+            for(int oh = 0; oh < output.h; oh++) {
+                for(int ow = 0; ow < output.w; ow++) {
+                    for(int oc = 0; oc < output.c; oc++) {
+                        float* outptr = output.data + output.chw*on+output.hw*oh+output.w*ow+oc;
+                        const float* inptr = input.data + input.chw*on+output.hw*oc+output.w*oh+ow;
+                        *outptr = *inptr;
+                    }
+                }
+            }
+        }
+    }
     else if(transpose.n==2&&transpose.c==1 && transpose.h==3 && transpose.w==4) {
         for(int on = 0; on < output.n; on++) {
             for(int oc = 0; oc < output.c; oc++) {
@@ -139,6 +160,7 @@ void RefTranspose::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& 
         }
     }
     else {
-        printf("error\n");
+        LOGE("transpose error\n");
     }
+}
 }

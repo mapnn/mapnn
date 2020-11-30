@@ -26,7 +26,7 @@ target_compile_options(kernel_tengine PUBLIC -ffast-math)
 target_link_libraries(kernel_tengine PUBLIC utils)
 target_link_libraries(kernel_tengine PUBLIC kernel::ref)
 target_link_libraries(kernel_tengine PUBLIC layout)
-target_link_libraries(kernel_tengine PUBLIC OpenMP::OpenMP_CXX)
+#target_link_libraries(kernel_tengine PUBLIC OpenMP::OpenMP_CXX)
 target_link_libraries(kernel_tengine PUBLIC tengine)
 
 add_library(kernel::tengine ALIAS kernel_tengine)

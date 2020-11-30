@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv_im2col_sgemm_sse);
 
+namespace mapnn {
 inline bool map_conv_im2col_sgemm_sse::request(Operator& op) {
     return op.type == OpType_Conv   &&
         op[Conv::WDILATION].i == 1   &&
@@ -32,4 +33,5 @@ inline bool map_conv_im2col_sgemm_sse::run(Graph* graph, Node* node) {
     node->setKernel(new ncnn_conv_im2col_sgemm_sse());
     node->cst_insert(weight);
     return true;
+}
 }

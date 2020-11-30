@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-include_directories(${MCNN_INCLUDE_DIRS})
+include_directories(${MAPNN_INCLUDE_DIRS})
 add_library(onnx OBJECT)
 target_sources(onnx 
     PRIVATE ${CMAKE_CURRENT_LIST_DIR}/onnx.pb.cc

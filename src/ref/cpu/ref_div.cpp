@@ -15,12 +15,13 @@
 
 #include "reference.h"
 #include <math.h>
+namespace mapnn {
 void RefDiv::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW A(ins[0]); 
     L1CHW B(ins[1]); 
     L1CHW output(out); 
     if(B.c!=A.c||B.h!=A.h||B.w!=A.w) {
-        fprintf(stderr, "Div not support broadcasting\n");
+        LOGE("Div not support broadcasting\n");
     }
     for(int q = 0; q < output.c; q++) {
         const float* ptr = A.data + B.hw*q;
@@ -31,4 +32,5 @@ void RefDiv::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             *outptr++ = *ptr++ / *pptr++;
         }
     }
+}
 }

@@ -21,6 +21,7 @@
 #include "node.h"
 #include "graph.h"
 
+namespace mapnn {
 class CaffeModel : public Model
 {
 private:
@@ -37,4 +38,5 @@ public:
     int load(const char* prototxt, const char* model)override;
     int draw(Graph* graph)override;
 };
+}
 #endif // __MAPNN_CAFFE_MODEL_H__

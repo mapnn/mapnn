@@ -18,6 +18,7 @@
 
 DECLARE_KERNEL_MAP(map_pad_avgpool3x3s2);
 
+namespace mapnn {
 inline bool map_pad_avgpool3x3s2::request(Operator& op) {
     return op.type == OpType_AveragePool &&
         op[Pool::WKERNEL].i == 3  &&
@@ -48,4 +49,5 @@ inline bool map_pad_avgpool3x3s2::run(Graph* graph, Node* node) {
     node->src_insert(npad);
     node->setKernel(new RefAvgPool(), op);
     return true;
+}
 }

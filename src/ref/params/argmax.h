@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class ArgMax {
 public:
     enum OP_TYPE {
@@ -35,5 +36,6 @@ inline ArgMax::ArgMax(const Operator& op){
     out_max_val = op[OUT_MAX_VAL].i;
     top_k = op[TOP_K].i;
     axis = op[AXIS].i;
+}
 }
 #endif // __MAPNN_ARGMAX_H__

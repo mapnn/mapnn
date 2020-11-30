@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefMin::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     if((L1CHW::check(ins[0])  && L1CHW::check(out))||
             (LCHW4::check(ins[0]) && LCHW4::check(out))) {
@@ -24,9 +25,9 @@ void RefMin::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
         int size = output.chw;
         memcpy(outptr, ptr, size*sizeof(float));
         for(size_t n = 1; n < ins.size(); n++) {
+            if(ins[n].empty()) continue;
             if(L1CHW::check(ins[n])) {
                 L1CHW input(ins[n]); 
-                if(input.chw <= 0) continue;
                 const float* ptr = input.data;
                 float* outptr = output.data;
                 for(int i = 0; i < size; i++) {
@@ -36,12 +37,13 @@ void RefMin::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
                 }
             }
             else {
-                fprintf(stderr, "min not support this layout!\n");
+                LOGE("min not support this layout!\n");
             }
         }
     }
     else {
-        fprintf(stderr, "min not support this layout!\n");
+        LOGE("min not support this layout!\n");
     }
 
+}
 }

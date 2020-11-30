@@ -31,6 +31,7 @@ using std::list;
 using std::string;
 using std::shared_ptr;
 
+namespace mapnn {
 class Node {
 private:
     friend class Graph;
@@ -97,4 +98,5 @@ public:
     Node* cst_remove(size_t pos = POSITION_FRONT);
     Node* sik_remove(size_t pos = POSITION_FRONT);
 };
+}
 #endif // __MAPNN_NODE_H__

@@ -17,7 +17,7 @@
 #define __MAPNN_TENGINE_KERNEL_H__
 
 #include "reference.h"
-#if defined(MCNN_USE_NEON64)
+#if defined(MAPNN_USE_NEON64)
 #include <arm_neon.h>
 DECLARE_KERNEL_BASE(tengine_conv_2d_direct_3x3_dilation, RefConv)
 DECLARE_KERNEL_BASE(tengine_conv_2d_dw_3x3, RefConv)

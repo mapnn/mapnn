@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_convolution3x3_gemm);
 
+namespace mapnn {
 inline bool map_convolution3x3_gemm::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
@@ -31,4 +32,5 @@ inline bool map_convolution3x3_gemm::request(Operator& op) {
 inline bool map_convolution3x3_gemm::run(Graph* graph, Node* node) {
     node->setKernel(new mnn_convolution3x3_gemm());
     return true;
+}
 }

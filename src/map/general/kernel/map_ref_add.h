@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_add);
 
+namespace mapnn {
 inline bool map_ref_add::request(Operator& op) {
     return op.type == OpType_Add;
 }
 inline bool map_ref_add::run(Graph* graph, Node* node) {
     node->setKernel(new RefAdd());
     return true;
+}
 }

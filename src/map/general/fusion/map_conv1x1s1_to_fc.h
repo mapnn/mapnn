@@ -18,6 +18,7 @@
 
 DECLARE_FUSION_MAP(map_conv1x1s1_to_fc);
 
+namespace mapnn {
 inline bool map_conv1x1s1_to_fc::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 1     &&
@@ -33,4 +34,5 @@ inline bool map_conv1x1s1_to_fc::request(Operator& op) {
 inline bool map_conv1x1s1_to_fc::run(Graph* graph, Node* node) {
     node->setKernel(new RefGemm());
     return true;
+}
 }

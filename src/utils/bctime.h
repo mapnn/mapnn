@@ -18,8 +18,16 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include <sys/time.h>
+#include <string.h>
 
+#if defined(_MSC_VER)
+#include <Windows.h>
+#else
+#include <sys/time.h>
+#endif
+
+
+namespace mapnn {
 class BCTime {
 public:
     BCTime();
@@ -37,31 +45,68 @@ private:
 };
 
 inline BCTime::BCTime() {
+#if defined(_MSC_VER)
+    LARGE_INTEGER time, freq;
+    QueryPerformanceFrequency(&freq);
+    QueryPerformanceCounter(&time);
+    uint64_t sec = time.QuadPart / freq.QuadPart;
+    uint64_t usec = (time.QuadPart % freq.QuadPart) * 1000000 / freq.QuadPart;
+    time_ = sec * 1000000 + usec;
+#else
     struct timeval Current;
     gettimeofday(&Current, nullptr);
     time_= Current.tv_sec * 1000000 + Current.tv_usec;
+#endif
 }
 inline BCTime::BCTime(const char* label) {
+#if defined(_MSC_VER)
+    LARGE_INTEGER time, freq;
+    QueryPerformanceCounter(&time);
+    QueryPerformanceFrequency(&freq);
+    uint64_t sec = time.QuadPart / freq.QuadPart;
+    uint64_t usec = (time.QuadPart % freq.QuadPart) * 1000000 / freq.QuadPart;
+    time_ = sec * 1000000 + usec;
+#else
     label_ = label;
     struct timeval Current;
     gettimeofday(&Current, nullptr);
     time_= Current.tv_sec * 1000000 + Current.tv_usec;
+#endif
 }
 inline BCTime::~BCTime() {
 #ifdef __DEBUG__
     if(label_ != NULL) {
+#if defined(_MSC_VER)
+        LARGE_INTEGER time, freq;
+        QueryPerformanceCounter(&time);
+        QueryPerformanceFrequency(&freq);
+        uint64_t sec = time.QuadPart / freq.QuadPart;
+        uint64_t usec = (time.QuadPart % freq.QuadPart) * 1000000 / freq.QuadPart;
+        auto lastBCTime = sec * 1000000 + usec;
+#else
         struct timeval Current;
         gettimeofday(&Current, nullptr);
         auto lastBCTime = Current.tv_sec * 1000000 + Current.tv_usec;
+#endif
         printf("%s, cost time: %f ms\n", label_, (float)(lastBCTime - time_) / 1000.0f);
     }
 #endif
 }
 inline float BCTime::get() {
+#if defined(_MSC_VER)
+    LARGE_INTEGER time, freq;
+    QueryPerformanceCounter(&time);
+    QueryPerformanceFrequency(&freq);
+    uint64_t sec = time.QuadPart / freq.QuadPart;
+    uint64_t usec = (time.QuadPart % freq.QuadPart) * 1000000 / freq.QuadPart;
+    auto lastBCTime = sec * 1000000 + usec;
+#else
     struct timeval Current;
     gettimeofday(&Current, nullptr);
     auto lastBCTime = Current.tv_sec * 1000000 + Current.tv_usec;
+#endif
     return (float)(lastBCTime - time_) / 1000.0f;
+}
 }
 
 #endif // __MAPNN_BCTIME_H__

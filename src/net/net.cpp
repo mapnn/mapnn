@@ -15,7 +15,6 @@
 
 #include "net.h"
 
-#include <sys/time.h>
 #include <vector>
 #include <stack>
 
@@ -27,6 +26,7 @@
 #include "kernel_stage.h"
 #include "fusion_stage.h"
 #include "optimal_stage.h"
+namespace mapnn {
 Net::Net()
 {
     m_graph_ = new Graph();
@@ -45,7 +45,6 @@ bool Net::load(const char* filepath) {
 }
 bool Net::prepare(int channel, int height, int width) {
     m_model_->draw(m_graph_);
-    printf("%d %d %d %d\n", m_model_->n,m_model_->c,m_model_->h,m_model_->w);
 
     Tensor input_tensor(channel, height, width, FLOAT, (void*)NULL);
 
@@ -119,4 +118,5 @@ Tensor& Net::getTensor(const char* name) {
 
 bool Net::tear() {
     return true;
+}
 }

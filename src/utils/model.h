@@ -16,6 +16,7 @@
 #ifndef __MAPNN_MODEL_H__
 #define __MAPNN_MODEL_H__
 
+namespace mapnn {
 class Graph;
 class Model {
 public:
@@ -25,5 +26,6 @@ public:
     virtual int draw(Graph* graph) = 0;
     virtual ~Model() = default;
 };
+}
 
 #endif // __MAPNN_MODEL_H__

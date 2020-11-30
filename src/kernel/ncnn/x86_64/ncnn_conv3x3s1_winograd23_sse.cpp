@@ -17,6 +17,7 @@
 #include <layer/x86/conv3x3s1_winograd23_sse_BdB.h>
 #include <layer/x86/conv3x3s1_winograd23_sse_dot.h>
 #include <layer/x86/conv3x3s1_winograd23_sse_AoA.h>
+namespace mapnn {
 void ncnn_conv3x3s1_winograd23_sse::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW output(out);
@@ -66,4 +67,5 @@ void ncnn_conv3x3s1_winograd23_sse::run(const Tensors& ins, Tensor& out, Tensors
         ncnn::Option opt;
         ncnn::conv3x3s1_winograd23_sse_AoA(bottom_blob, top_blob, _bias, opt, input.c, output.c, output.h, output.w);
     }
+}
 }

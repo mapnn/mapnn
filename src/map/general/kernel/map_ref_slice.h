@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_slice);
 
+namespace mapnn {
 inline bool map_ref_slice::request(Operator& op) {
     return op.type == OpType_Slice;
 }
 inline bool map_ref_slice::run(Graph* graph, Node* node) {
     node->setKernel(new RefSlice());
     return true;
+}
 }

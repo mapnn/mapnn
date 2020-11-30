@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_tengine_conv_2d_dw);
 
+namespace mapnn {
 inline bool map_tengine_conv_2d_dw::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::GROUP].i > 1        &&
@@ -28,4 +29,5 @@ inline bool map_tengine_conv_2d_dw::run(Graph* graph, Node* node) {
     Operator op = node->getOp();
     node->setKernel(new tengine_conv_2d_dw());
     return true;
+}
 }

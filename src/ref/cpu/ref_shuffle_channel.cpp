@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefShuffleChannel::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     ShuffleChannel sc(op);
     L1CHW input(ins[0]); 
@@ -22,7 +23,7 @@ void RefShuffleChannel::run(const Tensors& ins, Tensor& out, Tensors& tmp, Opera
     int chs_per_group = input.c / sc.group;
 
     if (input.c != chs_per_group * sc.group) {
-        printf("error shuffle channel\n");
+        LOGE("error shuffle channel\n");
     }
 
     for (int i = 0; i < sc.group; i++) {   
@@ -34,4 +35,5 @@ void RefShuffleChannel::run(const Tensors& ins, Tensor& out, Tensors& tmp, Opera
             memcpy(dst, src, input.hw);
         }   
     } 
+}
 }

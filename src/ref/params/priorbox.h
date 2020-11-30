@@ -17,6 +17,7 @@
 #define __MAPNN_PRIORBOX_H__
 #include "operator.h"
 
+namespace mapnn {
 class Priorbox {
 public:
     enum OP_TYPE {
@@ -65,5 +66,6 @@ inline Priorbox::Priorbox(const Operator& op){
     offset                  = op[OFFSET].i;
     step_mmdetection        = op[STEP_MMDETECTION].i;
     center_mmdetection      = op[CENTER_MMDETECTION].i;
+}
 }
 #endif // __MAPNN_PRIORBOX_H__

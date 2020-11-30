@@ -18,6 +18,7 @@
 
 DECLARE_KERNEL_MAP(map_pad_avgpool);
 
+namespace mapnn {
 inline bool map_pad_avgpool::request(Operator& op) {
     return op.type == OpType_AveragePool;
 }
@@ -45,4 +46,5 @@ inline bool map_pad_avgpool::run(Graph* graph, Node* node) {
     node->setKernel(new RefAvgPool(), op);
     return true;
 
+}
 }

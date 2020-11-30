@@ -17,6 +17,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv4x4s4_neon);
 
+namespace mapnn {
 inline bool map_conv4x4s4_neon::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 4     &&
@@ -31,4 +32,5 @@ inline bool map_conv4x4s4_neon::run(Graph* graph, Node* node) {
     Operator op = node->getOp();
     node->setKernel(new ncnn_conv4x4s4_neon());
     return true;
+}
 }

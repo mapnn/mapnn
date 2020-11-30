@@ -21,8 +21,6 @@
 #include <core/Concurrency.h>
 #include <math/Vec4.hpp>
 
-#include "conv.h"
-
 #define CONVOLUTION_TILED_NUMBER 8
 #define SOURCE_BLOCK 64
 #define WEIGHT_BLOCK 256
@@ -34,8 +32,9 @@
 
 using namespace MNN;
 using namespace MNN::Math;
-typedef Vec4 float4;
 
+namespace mapnn {
+typedef Vec4 float4;
 void sourceTransform(const float* srcBlock, float* dstStart, size_t step) {
     auto _x = (float*)srcBlock;
     float4 m00;
@@ -285,4 +284,5 @@ void mnn_convolution3x3_gemm::run(const Tensors& ins, Tensor& out, Tensors& tmp,
             tFunction(0, tileCount / threadNumber * threadNumber, 1, tileCount, srcOrigin, dstOrigin);
         }
     }
+}
 }

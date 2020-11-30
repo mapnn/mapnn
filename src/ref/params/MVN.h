@@ -17,6 +17,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class MVN {
 public:
     enum OP_TYPE {
@@ -30,5 +31,6 @@ public:
 inline MVN::MVN(const Operator& op){
     normalize_variance = op[NORMALIZE_VARIANCE].i != 0;
     across_channels    = op[ACROSS_CHANNELS].i != 0;
+}
 }
 #endif // __MAPNN_MVN_H__

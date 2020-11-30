@@ -15,6 +15,7 @@
 
 #include "ncnn_kernel.h"
 #include <layer/arm/eltwise_add_arm.h>
+namespace mapnn {
 void ncnn_eltwise_add_neon::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW A(ins[0]); 
     L1CHW B(ins[1]); 
@@ -24,4 +25,5 @@ void ncnn_eltwise_add_neon::run(const Tensors& ins, Tensor& out, Tensors& tmp, O
     ncnn::Mat top_blob(output.w, output.h, output.c, output.data, 4u, 1);
     ncnn::Option opt;
     ncnn::eltwise_add_arm(bottom_blob, bottom_blob1, top_blob, opt);
+}
 }

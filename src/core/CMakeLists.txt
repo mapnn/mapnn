@@ -11,5 +11,6 @@ target_sources(core
     )
 target_include_directories(core PUBLIC  ${CMAKE_CURRENT_LIST_DIR}/)
 target_link_libraries(core PUBLIC map)
+target_link_libraries(core PUBLIC ${MAPNN_LINKER_LIBS})
 target_compile_options(core PUBLIC -Ofast)
 target_compile_options(core PUBLIC -ffast-math)

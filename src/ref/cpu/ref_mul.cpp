@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefMul::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW A(ins[0]); 
     L1CHW B(ins[1]); 
@@ -44,23 +45,17 @@ void RefMul::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
         output.w = A.w;
     }
     else {
-        printf("\tMul: run\n");
-        printf("\tA: %d %d %d   %p\n", A.c, A.h, A.w, A.data);
-        printf("\tB: %d %d %d   %p\n", B.c, B.h, B.w, B.data);
-        printf("\toutput: %d %d %d   %p\n", output.c, output.h, output.w, output.data);
-        printf("error\n");
+        LOGE("\tMul: run\n");
+        LOGE("\tA: %d %d %d   %p\n", A.c, A.h, A.w, A.data);
+        LOGE("\tB: %d %d %d   %p\n", B.c, B.h, B.w, B.data);
+        LOGE("\toutput: %d %d %d   %p\n", output.c, output.h, output.w, output.data);
+        LOGE("error mul\n");
     }
 }
 void RefMul::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW A(ins[0]); 
     L1CHW B(ins[1]); 
     L1CHW output(out); 
-#ifdef __OP_DEBUG__
-    printf("\tMul: run\n");
-    printf("\tA: %d %d %d   %p\n", A.c, A.h, A.w, A.data);
-    printf("\tB: %d %d %d   %p\n", B.c, B.h, B.w, B.data);
-    printf("\toutput: %d %d %d   %p\n", output.c, output.h, output.w, output.data);
-#endif
     if(A.c == B.c && A.h == B.h && A.w == B.w) {
         int size = output.c * output.h * output.w;
         float* A_ptr = A.data;
@@ -118,4 +113,5 @@ void RefMul::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             B_ptr++;
         }
     }
+}
 }

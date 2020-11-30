@@ -16,26 +16,64 @@
 #ifndef __MAPNN_LOG_H__
 #define __MAPNN_LOG_H__
 
-#define __DEBUG_OPERATOR__
-#define __DEBUG_KERNEL__
-
-#if defined(__APPLE__)
-#elif defined(ANDROID)
-#include <android/log.h>
-#else
 #include <stdio.h>
 
-#define LOGI(f, ...)  printf(f, ##__VA_ARGS__)
-#define LOGE(f, ...)  printf(f, ##__VA_ARGS__)
-
-#ifdef __DEBUG_OPERATOR__
-#define LOGDG(f, ...)  printf(f, ##__VA_ARGS__)
+// for apple
+#if defined(__APPLE__)
+#define LOGI(...)  fprintf(stdout,__VA_ARGS__)
+#define LOGE(...)  fprintf(stderr,__VA_ARGS__)
+#ifdef __DEBUG_GRAPH__
+#define LOGDG(...)  printf(__VA_ARGS__)
 #endif
-
 #ifdef __DEBUG_KERNEL__
-#define LOGDK(f, ...)  printf(f, ##__VA_ARGS__)
+#define LOGDK(...)  printf(__VA_ARGS__)
 #endif
 
+// for android
+#elif defined(ANDROID)
+#define LOG_TAG "MapNN"
+#include <android/log.h>
+#define LOGI(...)  { \
+    __android_log_print(ANDROID_LOG_INFO,"MapNN",__VA_ARGS__); \
+    fprintf(stdout,__VA_ARGS__); \
+}
+#define LOGE(...)  { \
+    __android_log_print(ANDROID_LOG_ERROR,"MapNN",__VA_ARGS__); \
+    fprintf(stderr,__VA_ARGS__); \
+}
+#ifdef __DEBUG_GRAPH__
+#define LOGDG(...)  { \
+    __android_log_print(ANDROID_LOG_DEBUG,"MapNN",__VA_ARGS__); \
+    printf(__VA_ARGS__); \
+}
+#endif
+#ifdef __DEBUG_KERNEL__
+#define LOGDK(...)  { \
+    __android_log_print(ANDROID_LOG_DEBUG,"MapNN",__VA_ARGS__); \
+    printf(__VA_ARGS__); \
+}
+#endif
+
+// for android
+#else
+#include <stdio.h>
+#define LOGI(...)  fprintf(stdout,__VA_ARGS__)
+#define LOGE(...)  fprintf(stderr,__VA_ARGS__)
+#ifdef __DEBUG_GRAPH__
+#define LOGDG(...)  printf(__VA_ARGS__)
+#endif
+#ifdef __DEBUG_KERNEL__
+#define LOGDK(...)  printf(__VA_ARGS__)
+#endif
+
+#endif
+
+#ifndef LOGDG
+#define LOGDG
+#endif
+
+#ifndef LOGDK
+#define LOGDK
 #endif
 
 #endif // __MAPNN_LOG_H__

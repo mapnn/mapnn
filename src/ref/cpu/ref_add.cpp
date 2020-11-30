@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefAdd::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW A(ins[0]); 
     L1CHW B(ins[1]); 
@@ -44,11 +45,11 @@ void RefAdd::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
         output.w = A.w;
     }
     else {
-        printf("\tAdd: run\n");
-        printf("\tA: %d %d %d   %p\n", A.c, A.h, A.w, A.data);
-        printf("\tB: %d %d %d   %p\n", B.c, B.h, B.w, B.data);
-        printf("\toutput: %d %d %d   %p\n", output.c, output.h, output.w, output.data);
-        printf("error\n");
+        LOGE("\tAdd: run\n");
+        LOGE("\tA: %d %d %d   %p\n", A.c, A.h, A.w, A.data);
+        LOGE("\tB: %d %d %d   %p\n", B.c, B.h, B.w, B.data);
+        LOGE("\toutput: %d %d %d   %p\n", output.c, output.h, output.w, output.data);
+        LOGE("error add\n");
     }
 }
 void RefAdd::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
@@ -112,4 +113,5 @@ void RefAdd::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             B_ptr++;
         }
     }
+}
 }

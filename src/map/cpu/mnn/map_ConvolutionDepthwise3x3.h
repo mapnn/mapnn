@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_ConvolutionDepthwise3x3);
 
+namespace mapnn {
 inline bool map_ConvolutionDepthwise3x3::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
@@ -45,4 +46,5 @@ inline bool map_ConvolutionDepthwise3x3::run(Graph* graph, Node* node) {
     node->cst_insert(w_pack);
     node->sik_insert(o_pack);
     return true;
+}
 }

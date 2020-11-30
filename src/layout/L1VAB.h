@@ -17,6 +17,7 @@
 #define __MAPNN_L1VAB_H__
 
 #include "LUVAB.h"
+namespace mapnn {
 class L1VAB : protected LUVAB{
 private:
     void create(const Tensor& t);
@@ -54,6 +55,7 @@ inline void L1VAB::create(const Tensor& t) {
 inline void L1VAB::check() {
     if(layout == L_UVA1) return;
     if(layout == L_UVAB && LUVAB::b == 1) return;
-    printf("[ERROR] layout: L_UVA1\n");
+    LOGE("[ERROR] layout: L_UVA1\n");
+}
 }
 #endif // __MAPNN_L1VAB_H__

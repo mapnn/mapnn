@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefAvgPool::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Pool pool(op);
     L1CHW input(ins[0]); 
@@ -96,4 +97,5 @@ void RefAvgPool::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op
             }
         }
     }
+}
 }

@@ -15,6 +15,7 @@
 
 #include "tengine_kernel.h"
 #include <executor/operator/arm32/conv/conv_depthwise/depthwise_conv.hpp>
+namespace mapnn {
 void tengine_conv_2d_dw_k7s2::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW output(out); 
@@ -23,4 +24,5 @@ void tengine_conv_2d_dw_k7s2::run(const Tensors& ins, Tensor& out, Tensors& tmp,
     L111W bias(ins[2]);
     depthwise_conv_k7s2(input.data, weight.data, bias.data, output.data,
             input.h, input.w, input.c, output.h, output.w, -1);
+}
 }

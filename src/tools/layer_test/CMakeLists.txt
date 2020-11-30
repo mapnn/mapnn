@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 
+if(MSVC) 
+    return()
+endif()
+
 add_executable(layer_test)
 target_sources(layer_test PRIVATE 
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp

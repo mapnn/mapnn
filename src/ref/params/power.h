@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Power {
 public:
     enum OP_TYPE {
@@ -33,5 +34,6 @@ inline Power::Power(const Operator& op){
     power = op[POWER].f;
     scale = op[SCALE].f;
     shift = op[SHIFT].f;
+}
 }
 #endif // __MAPNN_POWER_H__

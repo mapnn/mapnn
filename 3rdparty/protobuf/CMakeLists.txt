@@ -11,9 +11,9 @@ else()
   add_definitions(-Wno-sign-compare)
   add_definitions(-Wno-class-varargs)
   add_definitions(-Wdelete-non-virtual-dtor)
-endif()
-if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
-  add_definitions(-Wno-class-memaccess)
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+    add_definitions(-Wno-class-memaccess)
+    endif()
 endif()
 # Easier to support different versions of protobufs
 function(append_if_exist OUTPUT_LIST)
@@ -30,11 +30,9 @@ endfunction()
 
 set(PROTOBUF_ROOT "${CMAKE_CURRENT_LIST_DIR}")
 
-if(MSVC)
-  set(ATOMICOPS_INTERNALS ${PROTOBUF_ROOT}/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc)
-endif()
-
-
+#if(MSVC)
+#  set(ATOMICOPS_INTERNALS ${PROTOBUF_ROOT}/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc)
+#endif()
 
 append_if_exist(Protobuf_SRCS
 # libprotobuf-lite

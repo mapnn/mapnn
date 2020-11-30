@@ -14,7 +14,7 @@
  */
 
 #include "reference.h"
-#include "pad.h"
+namespace mapnn {
 void RefPad::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Pad pad(op);
     L1CHW input(ins[0]); 
@@ -32,7 +32,7 @@ void RefPad::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     const size_t wpad0b = pad.wpad0;
     const size_t wpad1b = pad.wpad1;
     if(pad.mode != Pad::CONSTANT) {
-        fprintf(stderr, "Pad not support the mode.\n");
+        LOGE("Pad not support the mode.\n");
     }
     if(pad.value == 0) {
         for(int c = 0; c < output.c; c++) {
@@ -70,4 +70,5 @@ void RefPad::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             }
         }
     }
+}
 }

@@ -17,6 +17,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Conv {
 public:
     enum PAD_MODE {
@@ -67,5 +68,6 @@ inline Conv::Conv(const Operator& op) {
     hstride = op[HSTRIDE].i;
     g = op[GROUP].i;
     pad_mode = op[PADMODE].i;
+}
 }
 #endif // __MAPNN_CONV_H__

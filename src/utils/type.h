@@ -16,6 +16,7 @@
 #ifndef __MAPNN_TYPE_H__
 #define __MAPNN_TYPE_H__
 
+namespace mapnn {
 typedef enum DataType {
     UNDEFINED   = 0,
     FLOAT       = 1,  // float
@@ -58,5 +59,6 @@ typedef union Parameter{
     float f; 
     int i;
 }Parameter;
+}
 
 #endif // __MAPNN_TYPE_H__

@@ -14,8 +14,8 @@
  */
 
 #include "reference.h"
-#include "power.h"
 #include <math.h>
+namespace mapnn {
 void RefPower::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Power power(op);
     L1CHW input(ins[0]); 
@@ -30,4 +30,5 @@ void RefPower::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) 
             *outptr++ = pow(*ptr++ * s + b, power.power);
         }
     }
+}
 }

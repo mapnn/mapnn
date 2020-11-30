@@ -16,6 +16,7 @@
 #ifndef __MAPNN_L111W_H__
 #define __MAPNN_L111W_H__
 #include "LUVAB.h"
+namespace mapnn {
 class L111W : protected LUVAB{
 private:
     void create(const Tensor& t);
@@ -42,5 +43,6 @@ inline float L111W::operator[](int n) const{
 inline void L111W::create(const Tensor& t) {
     data    = t.data();
     w       = LUVAB::u*LUVAB::v*LUVAB::a*LUVAB::b;
+}
 }
 #endif // __MAPNN_L111W_H__

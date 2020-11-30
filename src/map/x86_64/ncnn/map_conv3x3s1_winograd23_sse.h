@@ -19,6 +19,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv3x3s1_winograd23_sse);
 
+namespace mapnn {
 inline bool map_conv3x3s1_winograd23_sse::request(Operator& op) {
     return  op.type == OpType_Conv   &&
         op[Conv::WKERNEL].i == 3     &&
@@ -53,4 +54,5 @@ inline bool map_conv3x3s1_winograd23_sse::run(Graph* graph, Node* node) {
     node->cst_insert(GgG);
     node->sik_insert(cro);
     return true;
+}
 }

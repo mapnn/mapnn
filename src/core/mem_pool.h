@@ -23,6 +23,7 @@
 #define MAX_LIST 10
 using std::vector;
 using std::list;
+namespace mapnn {
 class MemPool
 {
 private:
@@ -46,5 +47,6 @@ public:
     void alloc();
     void free();
 };
+}
 
 #endif // __MAPNN_MEM_POOL_H__

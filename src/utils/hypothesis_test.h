@@ -16,7 +16,8 @@
 #ifndef __MAPNN_HYPOTHESIS_TEST_H__
 #define __MAPNN_HYPOTHESIS_TEST_H__
 #include "macro.h"
-MCNN_UNUSED static float chiTest(Tensor& ori, Tensor& dst) {
+namespace mapnn {
+MAPNN_UNUSED static float chiTest(Tensor& ori, Tensor& dst) {
     if(ori.size() != dst.size()) return 1e19;
     double s1 = 0.f, s2 = 0.f;
     for(int i = 0; i < ori.size(); i++) {
@@ -39,7 +40,7 @@ MCNN_UNUSED static float chiTest(Tensor& ori, Tensor& dst) {
     return F;
 }
 
-MCNN_UNUSED static float kappaTest(Tensor& ori, Tensor& dst) {
+MAPNN_UNUSED static float kappaTest(Tensor& ori, Tensor& dst) {
     long long bin1[100] = {0}; 
     long long bin2[100] = {0}; 
     float max = -1e9, min = 1e9;
@@ -77,5 +78,6 @@ MCNN_UNUSED static float kappaTest(Tensor& ori, Tensor& dst) {
     }
 
     return chi;
+}
 }
 #endif // __MAPNN_HYPOTHESIS_TEST_H__

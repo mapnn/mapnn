@@ -48,6 +48,8 @@ std::vector<test::Perf> test::run_test(Graph* graph, Tensor input_tensor, int cy
             BCTime tr;
             int ret = g->mapping(os.maps[i]);
             if(0 != ret) { delete g; continue; }
+            ret = g->inferShape(input_tensor, true);
+            if(0 != ret) { delete g; continue; }
         }
         g->show((std::string(mname)+".dot").c_str());
 

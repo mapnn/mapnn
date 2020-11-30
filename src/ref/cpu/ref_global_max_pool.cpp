@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefGlobalMaxPool::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     L1CHW output(out); 
@@ -35,4 +36,5 @@ void RefGlobalMaxPool::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operat
         }
         *outptr++ = sum ;
     }
+}
 }

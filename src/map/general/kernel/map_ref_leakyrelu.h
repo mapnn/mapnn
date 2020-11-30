@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_leakyrelu);
 
+namespace mapnn {
 inline bool map_ref_leakyrelu::request(Operator& op) {
     return op.type == OpType_LeakyRelu;
 }
 inline bool map_ref_leakyrelu::run(Graph* graph, Node* node) {
     node->setKernel(new RefLeakyRelu());
     return true;
+}
 }

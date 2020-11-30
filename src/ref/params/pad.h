@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Pad {
 public:
     enum OP_MODE {
@@ -46,5 +47,6 @@ inline Pad::Pad(const Operator& op){
     hpad1 = op[HPAD1].i;
     mode  = op[MODE].i;
     value = op[VALUE].f;
+}
 }
 #endif // __MAPNN_PAD_H__

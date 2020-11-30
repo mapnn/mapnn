@@ -14,8 +14,8 @@
  */
 
 #include "reference.h"
-#include "MVN.h"
 #include <math.h>
+namespace mapnn {
 void RefMVN::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     MVN mvn(op);
     L1CHW input(ins[0]); 
@@ -101,4 +101,5 @@ void RefMVN::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             }
         }
     }
+}
 }

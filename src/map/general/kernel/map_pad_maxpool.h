@@ -17,6 +17,7 @@
 
 DECLARE_KERNEL_MAP(map_pad_maxpool);
 
+namespace mapnn {
 inline bool map_pad_maxpool::request(Operator& op) {
     return op.type == OpType_MaxPool;
 }
@@ -43,4 +44,5 @@ inline bool map_pad_maxpool::run(Graph* graph, Node* node) {
     }
     node->setKernel(new RefMaxPool(), op);
     return true;
+}
 }

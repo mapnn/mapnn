@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Transpose {
 public:
     enum OP_TYPE {
@@ -35,5 +36,6 @@ inline Transpose::Transpose(const Operator& op){
     c = op[CTO].i;
     h = op[HTO].i;
     w = op[WTO].i;
+}
 }
 #endif // __MAPNN_TRANSPOSE_H__

@@ -17,6 +17,7 @@
 
 DECLARE_KERNEL_MAP(map_ref_math);
 
+namespace mapnn {
 inline bool map_ref_math::request(Operator& op) {
     return op.type == OpType_Add    ||
            op.type == OpType_Abs    ||
@@ -42,4 +43,5 @@ inline bool map_ref_math::request(Operator& op) {
 inline bool map_ref_math::run(Graph* graph, Node* node) {
     node->setKernel(new RefMath());
     return true;
+}
 }

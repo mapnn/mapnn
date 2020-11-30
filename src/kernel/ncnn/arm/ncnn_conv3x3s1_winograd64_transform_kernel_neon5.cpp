@@ -16,6 +16,7 @@
 #include "ncnn_kernel.h"
 #include <layer/arm/conv3x3s1_winograd64_transform_kernel_neon5_GgG.h>
 #include <layer/arm/conv3x3s1_winograd64_transform_kernel_neon5_pack.h>
+namespace mapnn {
 void ncnn_conv3x3s1_winograd64_transform_kernel_neon5::init(const Tensors& /*ins*/, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1VAB output(out);
@@ -45,4 +46,5 @@ void ncnn_conv3x3s1_winograd64_transform_kernel_neon5::run(const Tensors& ins, T
     //ncnn::Option opt;
     ncnn::conv3x3s1_winograd64_transform_kernel_neon5_GgG(bottom_blob, temp_blob, inch, outch);
     ncnn::conv3x3s1_winograd64_transform_kernel_neon5_pack(temp_blob, top_blob, inch, outch);
+}
 }

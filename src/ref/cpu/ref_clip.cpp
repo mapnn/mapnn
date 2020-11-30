@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefClip::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Clip clip(op);
     L1CHW input(ins[0]); 
@@ -30,4 +31,5 @@ void RefClip::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             else outptr[i] = ptr[i];
         }
     }
+}
 }

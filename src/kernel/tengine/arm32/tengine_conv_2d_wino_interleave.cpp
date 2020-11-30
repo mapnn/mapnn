@@ -18,6 +18,7 @@
 #include <executor/operator/arm32/conv/winograd/wino_trans_inp.h>
 #include <executor/operator/arm32/conv/winograd/wino_sgemm.h>
 #include <executor/operator/arm32/conv/winograd/conv_2d_wino.h>
+namespace mapnn {
 void tengine_conv_2d_wino_interleave::init(const Tensors& /*ins*/, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1VAB output(out);
@@ -44,4 +45,5 @@ void tengine_conv_2d_wino_interleave::run(const Tensors& ins, Tensor& out, Tenso
     float* kernel_interleaved = output.data;
     transform_kernel_f43_tile(kernel_org, kernel_trans, input_c, output_c);
     interleave_kernel(kernel_trans, kernel_interleaved, output_c, input_c);
+}
 }

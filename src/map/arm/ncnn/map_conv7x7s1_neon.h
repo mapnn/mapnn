@@ -17,6 +17,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv7x7s1_neon);
 
+namespace mapnn {
 inline bool map_conv7x7s1_neon::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 7     &&
@@ -31,4 +32,5 @@ inline bool map_conv7x7s1_neon::run(Graph* graph, Node* node) {
     Operator op = node->getOp();
     node->setKernel(new ncnn_conv7x7s1_neon());
     return true;
+}
 }

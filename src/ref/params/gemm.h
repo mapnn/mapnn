@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Gemm {
 public:
     enum OP_TYPE {
@@ -36,5 +37,6 @@ inline Gemm::Gemm(const Operator& op) {
     beta  = op[BETA].f;
     transA = op[TRANSA].i;
     transB = op[TRANSB].i;
+}
 }
 #endif // __MAPNN_GEMM_H__

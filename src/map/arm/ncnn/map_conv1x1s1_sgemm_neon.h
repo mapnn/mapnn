@@ -14,9 +14,11 @@
  */
 
 #include "map.h"
+#include "ncnn_kernel.h"
 
 DECLARE_OPTIMAL_MAP(map_conv1x1s1_sgemm_neon);
 
+namespace mapnn {
 inline bool map_conv1x1s1_sgemm_neon::request(Operator& op){
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 1     &&
@@ -37,4 +39,5 @@ inline bool map_conv1x1s1_sgemm_neon::run(Graph* graph, Node* node){
     node->setKernel(new ncnn_conv1x1s1_sgemm_neon());
     node->cst_insert(weight);
     return true;
+}
 }

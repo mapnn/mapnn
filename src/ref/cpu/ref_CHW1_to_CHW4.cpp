@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefCHW1ToCHW4::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     LCHW4 output(out); 
@@ -86,4 +87,5 @@ void RefCHW1ToCHW4::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator&
             break;
         }
     }
+}
 }

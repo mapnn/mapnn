@@ -22,7 +22,7 @@
 #include "map.h"
 #include "bctime.h"
 
-
+namespace mapnn {
 std::string valid_string_(const char* in) {
     std::string valid("N");
     valid += in;
@@ -373,4 +373,5 @@ Graph* Graph::clone() {
         }
     }
     return g;
+}
 }

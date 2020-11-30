@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Reshape {
 public:
     enum OP_TYPE {
@@ -33,5 +34,6 @@ inline Reshape::Reshape(const Operator& op) {
     channel = op[Reshape::CHANNEL].i;
     height = op[Reshape::HEIGHT].i;
     width = op[Reshape::WIDTH].i;
+}
 }
 #endif // __MAPNN_RESHAPE_H__

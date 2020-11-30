@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Pool{
 public:
     enum PAD_MODE {
@@ -57,5 +58,6 @@ inline Pool::Pool(const Operator& op) {
     hstride = op[HSTRIDE].i;
     pad_mode = op[PADMODE].i;
     count_pad = op[COUNT_PAD].i != 0;
+}
 }
 #endif // __MAPNN_POOL_H__

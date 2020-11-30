@@ -15,6 +15,7 @@
 
 #include "ncnn_kernel.h"
 #include <layer/x86/conv5x5s1_sse.h>
+namespace mapnn {
 void ncnn_conv5x5s1_sse::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW output(out); 
     L1CHW input(ins[0]); 
@@ -26,4 +27,5 @@ void ncnn_conv5x5s1_sse::run(const Tensors& ins, Tensor& out, Tensors& tmp, Oper
     ncnn::Mat top_blob(output.w, output.h, output.c, output.data, 4u, 1);
     ncnn::Option opt;
     ncnn::conv5x5s1_sse(bottom_blob, top_blob, kernel, _bias, opt);
+}
 }

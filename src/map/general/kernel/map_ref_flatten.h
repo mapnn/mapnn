@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_flatten);
 
+namespace mapnn {
 inline bool map_ref_flatten::request(Operator& op) {
     return op.type == OpType_Flatten;
 }
 inline bool map_ref_flatten::run(Graph* graph, Node* node) {
     node->setKernel(new RefFlatten());
     return true;
+}
 }

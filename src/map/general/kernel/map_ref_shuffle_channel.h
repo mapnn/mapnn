@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_shuffle_channel);
 
+namespace mapnn {
 inline bool map_ref_shuffle_channel::request(Operator& op) {
     return op.type == OpType_ShuffleChannel;
 }
 inline bool map_ref_shuffle_channel::run(Graph* graph, Node* node) {
     node->setKernel(new RefShuffleChannel());
     return true;
+}
 }

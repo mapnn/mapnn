@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_batchnormal);
 
+namespace mapnn {
 inline bool map_ref_batchnormal::request(Operator& op) {
     return op.type == OpType_BatchNormalization;
 }
 inline bool map_ref_batchnormal::run(Graph* graph, Node* node) {
     node->setKernel(new RefBatchnormal());
     return true;
+}
 }

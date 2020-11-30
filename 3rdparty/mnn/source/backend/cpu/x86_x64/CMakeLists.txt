@@ -1,6 +1,5 @@
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "(x86_64)|(X86_64)|(x64)|(X64)|(amd64)|(AMD64)|(i686)|(x86)")
-    add_definitions(-Wno-sign-compare)
     if (APPLE)
         add_definitions(-fno-stack-check) # Workaround a Xcode 11.X bug
     endif()

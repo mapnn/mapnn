@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_clip);
 
+namespace mapnn {
 inline bool map_ref_clip::request(Operator& op) {
     return op.type == OpType_Clip;
 }
 inline bool map_ref_clip::run(Graph* graph, Node* node) {
     node->setKernel(new RefClip());
     return true;
+}
 }

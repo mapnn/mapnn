@@ -26,6 +26,7 @@
 using namespace MNN;
 using namespace MNN::Math;
 
+namespace mapnn {
 void mnn_reorderWeight::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     LUVAB output(out);
@@ -61,4 +62,5 @@ void mnn_reorderWeight::run(const Tensors& ins, Tensor& out, Tensors& tmp, Opera
     MNNPackC4(output.data, temp.data, kernelSize * ALIGN_UP4(depth), outputCount);
     auto count = UP_DIV(depth, 4) * kernelSize * UP_DIV(outputCount, 4);
     MNNReorder4x4ByPlatform(output.data, count);
+}
 }

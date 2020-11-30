@@ -17,6 +17,7 @@
 #include <layer/arm/conv3x3s1_winograd64_neon4_BdB.h>
 #include <layer/arm/conv3x3s1_winograd64_neon4_dot.h>
 #include <layer/arm/conv3x3s1_winograd64_neon4_AoA.h>
+namespace mapnn {
 void ncnn_conv3x3s1_winograd64_neon4::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW output(out);
@@ -73,4 +74,5 @@ void ncnn_conv3x3s1_winograd64_neon4::run(const Tensors& ins, Tensor& out, Tenso
         ncnn::Option opt;
         ncnn::conv3x3s1_winograd64_neon4_AoA(bottom_blob, top_blob, _bias, opt, output.c, input.c, output.h, output.w);
     }
+}
 }

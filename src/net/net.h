@@ -19,6 +19,7 @@
 #include "model.h"
 #include "tensor.h"
 
+namespace mapnn {
 class Graph;
 class Net
 {
@@ -37,4 +38,5 @@ public:
     const char*  getTensorName(int n);
     Tensor& getTensor(const char* name);
 };
+}
 #endif // __MAPNN_NET_H__

@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefCrop::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Crop crop(op);
     L1CHW input(ins[0]); 
@@ -21,7 +22,7 @@ void RefCrop::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) 
     output.c = input.c;
     output.h = input.h - crop.hcrop0 - crop.hcrop1;
     output.w = input.w - crop.wcrop0 - crop.wcrop1;
-    if(ins.size() >= 2) {
+    if(!ins[1].empty()) {
         L1CHW shape(ins[1]); 
         output.c = shape.c;
         output.h = shape.h;
@@ -41,4 +42,5 @@ void RefCrop::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             ptr += input.w;
         }
     }
+}
 }

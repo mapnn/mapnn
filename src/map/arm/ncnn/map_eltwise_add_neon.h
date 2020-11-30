@@ -17,6 +17,7 @@
 
 DECLARE_OPTIMAL_MAP(map_eltwise_add_neon);
 
+namespace mapnn {
 inline bool map_eltwise_add_neon::request(Operator& op) {
     return op.type == OpType_Add;
 }
@@ -26,3 +27,4 @@ inline bool map_eltwise_add_neon::run(Graph* graph, Node* node) {
     return true;
 }
 
+}

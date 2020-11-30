@@ -28,8 +28,8 @@
 #include "L111W.h"
 #include "L111W_s64.h"
 
+namespace mapnn {
 typedef std::vector<Tensor> Tensors;
-
 class Kernel {
 public:
     Kernel() = default;
@@ -37,24 +37,30 @@ public:
     virtual void init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) = 0;
     virtual void run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) = 0;
 };
+}
 
 #define DECLARE_KERNEL(name)                                                        \
+    namespace mapnn {                                                               \
     class name : public Kernel{                                                     \
     public:                                                                         \
         virtual ~name() = default;                                                  \
         virtual void init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op)override;   \
         virtual void run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op)override;    \
-    };
+    };                                                                              \
+    }
 
 #define DECLARE_KERNEL_BASE(name, base)                                             \
+    namespace mapnn {                                                               \
     class name : public base{                                                       \
     public:                                                                         \
         virtual ~name() = default;                                                  \
         virtual void run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op)override;    \
-    };
+    };                                                                              \
+    }
 
 
 #define DECLARE_KERNEL_WITH_MATH(name, math)                                        \
+    namespace mapnn {                                                               \
     class name : public Kernel {                                                    \
         void init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op)override{           \
             out.copyShape(ins[0]);                                                  \
@@ -72,6 +78,7 @@ public:
                 }                                                                   \
             }                                                                       \
         }                                                                           \
-    };
+    };                                                                              \
+    }
 
 #endif //__MAPNN_KERNEL_H__

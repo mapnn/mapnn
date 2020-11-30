@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefSlice::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Slice slice(op);
     L1CHW input(ins[0]); 
@@ -109,4 +110,5 @@ void RefSlice::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) 
         }
 
     }
+}
 }

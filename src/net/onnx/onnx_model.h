@@ -24,6 +24,7 @@
 #include "graph.h"
 #include "model.h"
 
+namespace mapnn {
 class OnnxModel : public Model
 {
 private:
@@ -39,4 +40,5 @@ public:
     int load(const char* filepath, const char* filepath1)override {return false;}
     int draw(Graph* graph)override;
 };
+}
 #endif // __MAPNN_ONNX_MODEL_H__

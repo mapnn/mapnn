@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_tengine_conv_fast);
 
+namespace mapnn {
 inline bool map_tengine_conv_fast::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
@@ -39,4 +40,5 @@ inline bool map_tengine_conv_fast::run(Graph* graph, Node* node) {
     node->setKernel(new tengine_conv_fast_direct());
     node->cst_insert(weight);
     return true;
+}
 }

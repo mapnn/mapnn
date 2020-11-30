@@ -15,6 +15,7 @@
 
 #include "tengine_kernel.h"
 #include <executor/operator/arm32/conv/direct/conv_2d_direct_3x3_dilation.h>
+namespace mapnn {
 void tengine_conv_2d_direct_3x3_dilation::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW output(out); 
     L1CHW input(ins[0]); 
@@ -22,4 +23,5 @@ void tengine_conv_2d_direct_3x3_dilation::run(const Tensors& ins, Tensor& out, T
     L111W bias(ins[2]);
     TEngine::conv_2d_direct_3x3_dilation::DirectConv(input.data, weight.data, bias.data, output.data,
             input.h, input.w, input.c, output.c, 0, -1);
+}
 }

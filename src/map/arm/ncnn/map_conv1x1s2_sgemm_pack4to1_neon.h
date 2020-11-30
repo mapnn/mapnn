@@ -17,6 +17,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv1x1s2_sgemm_pack4to1_neon);
 
+namespace mapnn {
 inline bool map_conv1x1s2_sgemm_pack4to1_neon::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 1     &&
@@ -43,4 +44,5 @@ inline bool map_conv1x1s2_sgemm_pack4to1_neon::run(Graph* graph, Node* node) {
     node->src_insert(s2);
     node->cst_insert(w_pack);
     return true;
+}
 }

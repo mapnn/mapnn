@@ -67,13 +67,9 @@ void layer_debug::run_debug(Graph* graph, Tensor input_tensor, bool test) {
         Graph* g = graph->clone();
         {
             int ret = g->mapping(os.maps[i]);
-            if(0 != ret) {
-                delete g;
-                continue;
-            }
-            //PadStage ps;
-            //g->mapping(ps.maps);
-            //g->inferShape(input_tensor, false);
+            if(0 != ret) { delete g; continue; }
+            ret = g->inferShape(input_tensor, true);
+            if(0 != ret) { delete g; continue; }
         }
         g->show((std::string(mname)+".dot").c_str());
 

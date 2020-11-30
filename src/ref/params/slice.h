@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Slice {
 public:
     enum OP_TYPE {
@@ -38,5 +39,6 @@ inline Slice::Slice(const Operator& op){
     end   = op[END].i;
     index = op[INDEX].i;
     max   = op[MAX].i;
+}
 }
 #endif // __MAPNN_SLICE_H__

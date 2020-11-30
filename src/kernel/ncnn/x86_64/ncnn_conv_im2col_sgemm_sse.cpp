@@ -17,6 +17,7 @@
 #include <layer/x86/conv_im2col_sgemm_sse_im2col.h>
 #include <layer/x86/conv_im2col_sgemm_sse_pack.h>
 #include <layer/x86/conv_im2col_sgemm_sse_sgemm.h>
+namespace mapnn {
 void ncnn_conv_im2col_sgemm_sse::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW input(ins[0]); 
@@ -77,4 +78,5 @@ void ncnn_conv_im2col_sgemm_sse::run(const Tensors& ins, Tensor& out, Tensors& t
         ncnn::conv_im2col_sgemm_sse_sgemm(bottom_blob, top_blob, kernel, _bias,
                 conv.wkernel, conv.hkernel, conv.wstride, conv.hstride, opt, input.c);
     }
+}
 }

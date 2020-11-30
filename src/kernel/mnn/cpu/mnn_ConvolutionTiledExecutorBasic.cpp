@@ -25,8 +25,8 @@
 
 using namespace MNN;
 using namespace MNN::Math;
+namespace mapnn {
 typedef Vec4 float4;
-
 void mnn_ConvolutionTiledExecutorBasic::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     LCHW4 output(out);
@@ -113,4 +113,5 @@ void mnn_ConvolutionTiledExecutorBasic::run(const Tensors& ins, Tensor& out, Ten
         }
         MNN_CONCURRENCY_END();
     //}
+}
 }

@@ -11,7 +11,7 @@ target_compile_options(kernel_ncnn PUBLIC -ffast-math)
 target_link_libraries(kernel_ncnn PUBLIC utils)
 target_link_libraries(kernel_ncnn PUBLIC kernel::ref)
 target_link_libraries(kernel_ncnn PUBLIC layout)
-target_link_libraries(kernel_ncnn PUBLIC OpenMP::OpenMP_CXX)
+#target_link_libraries(kernel_ncnn PUBLIC OpenMP::OpenMP_CXX)
 target_link_libraries(kernel_ncnn PUBLIC ncnn)
 
 add_library(kernel::ncnn ALIAS kernel_ncnn)

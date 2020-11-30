@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefMaxPool::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Pool pool(op);
     L1CHW input(ins[0]); 
@@ -58,9 +59,5 @@ void RefMaxPool::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op
             outptr += output.w;
         }
     }
-#ifdef __OP_DEBUG__
-    printf("\trun maxpool\n");
-    printf("\tinput: %d %d %d   %p\n", input.c, input.h, input.w, input.data);
-    printf("\toutput: %d %d %d  %p\n", output.c, output.h, output.w, output.data);
-#endif
+}
 }

@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_conv_2d_direct_3x3_dilation);
 
+namespace mapnn {
 inline bool map_conv_2d_direct_3x3_dilation::request(Operator& op) {
     return op.type == OpType_Conv                       &&
         op[Conv::WKERNEL].i == 3                        &&
@@ -40,4 +41,5 @@ inline bool map_conv_2d_direct_3x3_dilation::run(Graph* graph, Node* node) {
     node->setKernel(new tengine_conv_2d_direct_3x3_dilation(), op);
     node->sik_insert(cro);
     return true;
+}
 }

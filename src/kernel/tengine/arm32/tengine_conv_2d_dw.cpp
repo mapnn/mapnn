@@ -15,6 +15,7 @@
 
 #include "tengine_kernel.h"
 #include <executor/operator/arm32/conv/conv_depthwise/conv_2d_dw_general.h>
+namespace mapnn {
 void tengine_conv_2d_dw::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW output(out); 
@@ -33,4 +34,5 @@ void tengine_conv_2d_dw::run(const Tensors& ins, Tensor& out, Tensors& tmp, Oper
             0,0,
             conv.hstride, conv.wstride,
             conv.hdilation, conv.wdilation);
+}
 }

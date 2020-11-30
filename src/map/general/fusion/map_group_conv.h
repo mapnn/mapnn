@@ -18,6 +18,7 @@
 
 DECLARE_FUSION_MAP(map_group_conv);
 
+namespace mapnn {
 inline bool map_group_conv::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::GROUP].i > 1        &&
@@ -94,4 +95,5 @@ inline bool map_group_conv::run(Graph* graph, Node* node) {
 
     }
     return false;
+}
 }

@@ -17,6 +17,7 @@
 #include <layer/arm/conv_im2col_sgemm_neon_im2col.h>
 #include <layer/arm/conv_im2col_sgemm_neon_packed.h>
 #include <layer/arm/conv_im2col_sgemm_neon_sgemm.h>
+namespace mapnn {
 void ncnn_conv_im2col_sgemm_neon::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW input(ins[0]);
@@ -82,4 +83,5 @@ void ncnn_conv_im2col_sgemm_neon::run(const Tensors& ins, Tensor& out, Tensors& 
                 conv.wkernel, conv.hkernel, conv.wstride, conv.hstride, opt,
                 input.c, output.w, output.h, output.c);
     }
+}
 }

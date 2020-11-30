@@ -17,6 +17,7 @@
 #define __MAPNN_PRELU_H__
 #include "operator.h"
 
+namespace mapnn {
 class PRelu {
 public:
     enum OP_TYPE {
@@ -28,5 +29,6 @@ public:
 };
 inline PRelu::PRelu(const Operator& op){
     alpha = op[ALPHA].f;
+}
 }
 #endif // __MAPNN_PRELU_H__

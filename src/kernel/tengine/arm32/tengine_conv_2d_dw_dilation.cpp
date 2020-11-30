@@ -15,6 +15,7 @@
 
 #include "tengine_kernel.h"
 #include <executor/operator/arm64/conv/conv_depthwise/conv_2d_dw_dilation.h>
+namespace mapnn {
 void tengine_conv_2d_dw_dilation::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1CHW output(out); 
@@ -23,4 +24,5 @@ void tengine_conv_2d_dw_dilation::run(const Tensors& ins, Tensor& out, Tensors& 
     L111W bias(ins[2]);
     TEngine::conv_2d_dw_dilation::DirectConv(input.data, weight.data, bias.data,
             output.data, input.h, input.h, input.c, 0, -1);
+}
 }

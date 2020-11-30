@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefScale::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW output(out); 
     L1CHW input(ins[0]); 
@@ -30,4 +31,5 @@ void RefScale::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) 
         }
     }
 
+}
 }

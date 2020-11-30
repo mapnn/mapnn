@@ -15,6 +15,7 @@
 
 #include "reference.h"
 #include <cmath>
+namespace mapnn {
 void RefSigmoid::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     L1CHW output(out); 
@@ -32,4 +33,5 @@ void RefSigmoid::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op
         else *outptr++ = 1.0f/(1.f+std::exp(-*inptr));
         inptr++;
     }
+}
 }

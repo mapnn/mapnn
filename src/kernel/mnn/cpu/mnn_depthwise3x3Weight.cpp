@@ -26,7 +26,7 @@
 
 using namespace MNN;
 using namespace MNN::Math;
-
+namespace mapnn {
 void mnn_depthwise3x3Weight::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     LUVAB output(out);
@@ -70,4 +70,5 @@ void mnn_depthwise3x3Weight::run(const Tensors& ins, Tensor& out, Tensors& tmp, 
         }
     }
 
+}
 }

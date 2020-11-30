@@ -18,6 +18,7 @@
 
 DECLARE_KERNEL_MAP(map_pad_conv3x3s1_same);
 
+namespace mapnn {
 inline bool map_pad_conv3x3s1_same::request(Operator& op) {
     return op.type == OpType_Conv &&
         op[Conv::WKERNEL].i == 3  &&
@@ -42,4 +43,5 @@ inline bool map_pad_conv3x3s1_same::run(Graph* graph, Node* node) {
     node->src_insert(npad);
     node->setKernel(new RefConv(), op);
     return true;
+}
 }

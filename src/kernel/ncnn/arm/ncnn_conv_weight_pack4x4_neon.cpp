@@ -14,6 +14,7 @@
  */
 
 #include "ncnn_kernel.h"
+namespace mapnn {
 void ncnn_conv_weight_pack4x4_neon::init(const Tensors& /*ins*/, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     LUVAB output(out);
@@ -88,4 +89,5 @@ void ncnn_conv_weight_pack4x4_neon::run(const Tensors& ins, Tensor& out, Tensors
             }
         }
     }
+}
 }

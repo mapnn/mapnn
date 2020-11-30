@@ -14,6 +14,7 @@
  */
 
 #include "ncnn_kernel.h"
+namespace mapnn {
 void ncnn_conv3x3s2_transform_kernel_neon::init(const Tensors& /*ins*/, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1VAB output(out);
@@ -91,4 +92,5 @@ void ncnn_conv3x3s2_transform_kernel_neon::run(const Tensors& ins, Tensor& out, 
         }
     }
 
+}
 }

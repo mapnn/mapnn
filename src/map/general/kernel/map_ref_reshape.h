@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_reshape);
 
+namespace mapnn {
 inline bool map_ref_reshape::request(Operator& op) {
     return op.type == OpType_Reshape;
 }
 inline bool map_ref_reshape::run(Graph* graph, Node* node) {
     node->setKernel(new RefReshape());
     return true;
+}
 }

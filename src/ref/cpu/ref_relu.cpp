@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefRelu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     if(L1CHW::check(ins[0]) && L1CHW::check(out)) {
         L1CHW input(ins[0]); 
@@ -42,4 +43,5 @@ void RefRelu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
         }
     }
 
+}
 }

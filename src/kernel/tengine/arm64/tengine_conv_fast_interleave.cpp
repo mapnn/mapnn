@@ -15,6 +15,7 @@
 
 #include "tengine_kernel.h"
 #include <executor/operator/arm64/conv/im2col_gemm_fp32/conv_2d_fast.h>
+namespace mapnn {
 void tengine_conv_fast_interleave::init(const Tensors& /*ins*/, Tensor& out, Tensors& tmp, Operator& op) {
     Conv conv(op);
     L1VAB output(out);
@@ -42,4 +43,5 @@ void tengine_conv_fast_interleave::run(const Tensors& ins, Tensor& out, Tensors&
         float* kernel_interleaved_g = output.data + g * kernel_interleaved_size_g;
         TEngine::conv_fast::interleave_kernel(kernel, kernel_interleaved_g, output_chan, kernel_size);
     }
+}
 }

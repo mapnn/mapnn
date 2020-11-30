@@ -15,6 +15,7 @@
 
 #include "reference.h"
 #include <cstring>
+namespace mapnn {
 void RefFlatten::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     L1CHW output(out); 
@@ -28,4 +29,5 @@ void RefFlatten::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op
     const float* inptr = input.data;
     float* outptr = output.data;
     memcpy(outptr, inptr, input.chw*sizeof(float));
+}
 }

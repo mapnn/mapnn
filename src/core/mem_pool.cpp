@@ -15,6 +15,7 @@
 
 #include "mem_pool.h"
 #include "memory.h"
+namespace mapnn {
 MemPool::MemPool() {
 }
 MemPool::~MemPool() {
@@ -173,4 +174,5 @@ void MemPool::free() {
     const_memory_.clear();
     temp_length_.clear();
     temp_memory_.clear();
+}
 }

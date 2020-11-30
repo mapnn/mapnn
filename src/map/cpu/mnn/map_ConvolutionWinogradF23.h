@@ -18,6 +18,7 @@
 
 DECLARE_OPTIMAL_MAP(map_ConvolutionWinogradF23);
 
+namespace mapnn {
 inline bool map_ConvolutionWinogradF23::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
@@ -43,4 +44,5 @@ inline bool map_ConvolutionWinogradF23::run(Graph* graph, Node* node) {
     node->cst_insert(w_pack);
     node->sik_insert(o_pack);
     return true;
+}
 }

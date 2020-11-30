@@ -17,6 +17,7 @@
 
 DECLARE_OPTIMAL_MAP(map_pooling3x3s2_max_neon);
 
+namespace mapnn {
 inline bool map_pooling3x3s2_max_neon::request(Operator& op) {
     return op.type == OpType_MaxPool &&
         op[Pool::WKERNEL].i == 3     &&
@@ -28,4 +29,5 @@ inline bool map_pooling3x3s2_max_neon::run(Graph* graph, Node* node) {
     Operator op = node->getOp();
     node->setKernel(new ncnn_pooling3x3s2_max_neon());
     return true;
+}
 }

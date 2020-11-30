@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Dropout {
 public:
     enum OP_TYPE {
@@ -29,5 +30,6 @@ public:
 };
 inline Dropout::Dropout(const Operator& op){
     scale = 1;//op[SCALE].f; //TODO
+}
 }
 #endif // __MAPNN_DROPOUT_H__

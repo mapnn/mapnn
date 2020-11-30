@@ -17,10 +17,10 @@
 #define __MAPNN_NCNN_KERNEL_H__
 
 #include "reference.h"
-#if defined(MCNN_USE_NEON32) || defined(MCNN_USE_NEON64)
+#if defined(MAPNN_USE_NEON32) || defined(MAPNN_USE_NEON64)
 #include <arm_neon.h>
 #define __ARM_NEON 1
-#if defined(MCNN_USE_NEON64)
+#if defined(MAPNN_USE_NEON64)
 #define __aarch64__ 1
 #endif
 DECLARE_KERNEL_BASE(ncnn_conv1x1s1_neon, RefConv)                      

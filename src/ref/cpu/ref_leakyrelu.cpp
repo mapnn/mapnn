@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefLeakyRelu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     LeakyRelu lr(op);
     L1CHW input(ins[0]); 
@@ -30,4 +31,5 @@ void RefLeakyRelu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& 
             outptr++;
         }
     }
+}
 }

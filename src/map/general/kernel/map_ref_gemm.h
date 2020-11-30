@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_gemm);
 
+namespace mapnn {
 inline bool map_ref_gemm::request(Operator& op) {
     return op.type == OpType_Gemm;
 }
 inline bool map_ref_gemm::run(Graph* graph, Node* node) {
     node->setKernel(new RefGemm());
     return true;
+}
 }

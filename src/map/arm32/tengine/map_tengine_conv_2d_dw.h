@@ -16,9 +16,10 @@
 #include "map.h"
 #include "tengine_kernel.h"
 
-DECLARE_OPTIMAL_MAP(map_tengine_conv_2d_dw_3x3);
+DECLARE_OPTIMAL_MAP(map_tengine_conv_2d_dw);
 
-inline bool map_tengine_conv_2d_dw_3x3::request(Operator& op) {
+namespace mapnn {
+inline bool map_tengine_conv_2d_dw::request(Operator& op) {
     return op.type == OpType_Conv    &&
         op[Conv::WKERNEL].i == 3     &&
         op[Conv::HKERNEL].i == 3     &&
@@ -27,8 +28,9 @@ inline bool map_tengine_conv_2d_dw_3x3::request(Operator& op) {
         op[Conv::GROUP].i == op.oc   &&
         op[Conv::WSTRIDE].i == op[Conv::HSTRIDE].i;
 }
-inline bool map_tengine_conv_2d_dw_3x3::run(Graph* graph, Node* node) {
+inline bool map_tengine_conv_2d_dw::run(Graph* graph, Node* node) {
     Operator op = node->getOp();
-    node->setKernel(new tengine_conv_2d_dw_3x3());
+    node->setKernel(new tengine_conv_2d_dw());
     return true;
+}
 }

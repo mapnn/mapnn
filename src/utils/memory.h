@@ -39,6 +39,13 @@
 #  define NNOKM_XADD(addr, delta) (int)_InterlockedExchangeAdd((long volatile*)addr, delta)
 #endif
 
+template<typename _Tp>
+static inline _Tp* alignPtr(_Tp* ptr, int n = (int)sizeof(_Tp))
+{
+    return (_Tp*)(((size_t)ptr + n - 1) & -n);
+}
+
+
 #define MALLOC_ALIGN    16
 static inline size_t alignSize(size_t sz, int n)
 {

@@ -14,12 +14,12 @@
  */
 
 #include "reference.h"
-#include "reshape.h"
+namespace mapnn {
 void RefReshape::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     LNCHW input(ins[0]); 
     LNCHW output(out); 
     Reshape reshape(op);
-    if(ins.size() >= 3 && reshape.channel == 0) {
+    if(!ins[1].empty() && reshape.channel == 0) {
         L111W_s64 shape(ins[1]);
         switch(shape.w) {
             case 2:
@@ -72,7 +72,7 @@ void RefReshape::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& o
                     output.w = shape[4];
                 }
                 else {
-                    fprintf(stderr, "reshape error\n");
+                    LOGE("reshape error\n");
                 }
             default:
                 break;
@@ -101,4 +101,5 @@ void RefReshape::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op
         float* outptr = output.data;
         memcpy(outptr, inptr, input.nchw*4);
     }
+}
 }

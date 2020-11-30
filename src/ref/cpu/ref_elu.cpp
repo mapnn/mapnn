@@ -15,6 +15,7 @@
 
 #include "reference.h"
 #include <math.h>
+namespace mapnn {
 void RefElu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     Elu elu(op);
     L1CHW input(ins[0]); 
@@ -32,4 +33,5 @@ void RefElu::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
         }
     }
 
+}
 }

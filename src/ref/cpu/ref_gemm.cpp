@@ -14,6 +14,7 @@
  */
 
 #include "reference.h"
+namespace mapnn {
 void RefGemm::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW output(out); 
     L1CHW input(ins[0]); 
@@ -39,4 +40,5 @@ void RefGemm::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
         }   
         *outptr++ = sum;
     }
+}
 }

@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 
+if(MSVC) 
+    return()
+endif()
+
 add_executable(nettest)
 target_sources(nettest PRIVATE main.cpp)
 target_link_libraries(nettest PRIVATE net)

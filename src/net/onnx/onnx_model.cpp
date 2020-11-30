@@ -23,10 +23,13 @@
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/message.h>
 
+#include "log.h"
 #include "graph.h"
 #include "reference.h"
 
 using onnx::ModelProto;
+
+namespace mapnn {
 OnnxModel::OnnxModel() {
     model_ = new ModelProto();
 }
@@ -37,7 +40,7 @@ int OnnxModel::load(const char* filepath) {
     std::ifstream fs(filepath, std::ifstream::in | std::ifstream::binary);
     if (!fs.is_open())
     {
-        fprintf(stderr, "open failed %s\n\n", filepath);
+        LOGE("open failed %s\n\n", filepath);
         return false;
     }
     google::protobuf::io::IstreamInputStream input(&fs);
@@ -298,7 +301,7 @@ int OnnxModel::create_operater_node_(Graph* graph) {
         else if (op == "Conv") {
             std::string weight_name = node.input(1);
             const auto it = tensor_node_list_.find(weight_name);
-            if (it == tensor_node_list_.end()) {fprintf(stdout, "Conv have not weight.\n");}
+            if (it == tensor_node_list_.end()) {LOGE("Conv have not weight.\n");}
             Operator op(OpType_Conv);
             op[Conv::OUTCH].i = it->second->dims(0);
             op[Conv::INCH].i  = it->second->dims(1);
@@ -344,7 +347,7 @@ int OnnxModel::create_operater_node_(Graph* graph) {
         else if (op == "ConvTranspose") {
             std::string weight_name = node.input(1);
             const auto it = tensor_node_list_.find(weight_name);
-            if (it == tensor_node_list_.end()) {fprintf(stdout, "Conv have not weight.\n");}
+            if (it == tensor_node_list_.end()) {LOGE("Conv have not weight.\n");}
             Operator op(OpType_ConvTranspose);
             op[Conv::OUTCH].i = it->second->dims(0);
             op[Conv::INCH].i  = it->second->dims(1);
@@ -466,7 +469,7 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             graph->createNode(name, op);
         }
         else if (op == "InstanceNormalization") {
-            fprintf(stdout, "%-16s\n", "InstanceNorm");
+            LOGE("%-16s\n", "InstanceNorm");
         }
         else if (op == "LeakyRelu") {
             Operator op(OpType_LeakyRelu);
@@ -509,7 +512,7 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             graph->createNode(name, op);
         }
         else if (op == "MatMul") {
-            fprintf(stdout, "%-16s\n", "InnerProduct");
+            LOGE("%-16s\n", "InnerProduct");
         }
         else if (op == "Max") {
             Operator op(OpType_Max);
@@ -569,7 +572,7 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             graph->createNode(name, op);
         }
         else if (op == "Reciprocal") {
-            fprintf(stdout, "%-16s\n", "UnaryOp");
+            LOGE("%-16s\n", "UnaryOp");
         }
         else if (op == "Relu") {
             Operator op(OpType_Relu);
@@ -603,7 +606,7 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             graph->createNode(name, op);
         }
         else if (op == "Sqrt") {
-            fprintf(stdout, "%-16s\n", "UnaryOp");
+            LOGE("%-16s\n", "UnaryOp");
         }
         else if (op == "Sub") {
             Operator op(OpType_Sub);
@@ -647,15 +650,90 @@ int OnnxModel::create_operater_node_(Graph* graph) {
                         op[Transpose::WTO].i  = attr.ints(1);
                     }
                     else {
-                        fprintf(stderr, "transpose error %d\n",attr.ints_size());
+                        LOGE("transpose error %d\n",attr.ints_size());
                     }
                 }
             }
             graph->createNode(name, op);
         }
+        else if (op == "Upsample") {
+            Operator op(OpType_Upsample);
+            op[Upsample::HEIGHT].i = 0;
+            op[Upsample::WIDTH].i = 0;
+            op[Upsample::HEIGHT_SCALE].f = 1.f;
+            op[Upsample::WIDTH_SCALE].f = 1.f;
+            op[Upsample::UPSAMPLE_MODE].i = 1;
+            for (int i=0; i<node.attribute_size(); i++) {
+                const onnx::AttributeProto& attr = node.attribute(i);
+                if (attr.name() == "mode") {
+                    if(attr.s() == "nearest") {
+                        op[Upsample::UPSAMPLE_MODE].i = Upsample::NEAREST;
+                    }
+                    else if(attr.s() == "bilinear" || attr.s() == "linear") {
+                        op[Upsample::UPSAMPLE_MODE].i = Upsample::BILINEAR;
+                    }
+                    else if(attr.s() == "trilinear") {
+                        op[Upsample::UPSAMPLE_MODE].i = Upsample::BICUBIC;
+                    }
+                    else {
+                        LOGE("resize error %s\n",attr.s().c_str());
+                    }
+                }
+                else if(attr.name() == "scales") {
+                    if (attr.floats_size() == 2) {
+                        op[Upsample::WIDTH_SCALE].f = attr.floats(1);
+                        printf("%f %f\n", attr.floats(0), attr.floats(1));
+                    }
+                    else if (attr.floats_size() == 3) {
+                        op[Upsample::HEIGHT_SCALE].f = attr.floats(1);
+                        op[Upsample::WIDTH_SCALE].f = attr.floats(2);
+                        printf("%f %f %f\n", attr.floats(0), attr.floats(1), attr.floats(2));
+                    }
+                    else {
+                        LOGE("resize error scale size %d\n",attr.floats_size());
+                    }
+                }
+                else if(attr.name() == "align_corners") {
+                    op[Upsample::PAD_MODE].i = 1;
+                }
+            }
+            graph->createNode(name, op);
+        }
+        else if (op == "Resize") {
+            Operator op(OpType_Resize);
+            for (int i=0; i<node.attribute_size(); i++) {
+                const onnx::AttributeProto& attr = node.attribute(i);
+                if(attr.name() == "coordinate_transformation_mode") {
+                    if(attr.s() == "half_pixel") op[Resize::TRANSFORMATION_MODE].i = Resize::HALF_PIXEL;
+                    if(attr.s() == "pytorch_half_pixel") op[Resize::TRANSFORMATION_MODE].i = Resize::PYTORCH_HALF_PIXEL;
+                    if(attr.s() == "align_corners") op[Resize::TRANSFORMATION_MODE].i = Resize::ALIGN_CORNERS;
+                    if(attr.s() == "asymmetric") op[Resize::TRANSFORMATION_MODE].i = Resize::ASYMMETRIC;
+                    if(attr.s() == "tf_crop_and_resize") op[Resize::TRANSFORMATION_MODE].i = Resize::TF_CROP_AND_RESIZE;
+                }
+                else if (attr.name() == "cubic_coeff_a") {
+                    op[Resize::CUBIC_COEFF_A].f = attr.f();
+                }
+                else if (attr.name() == "exclude_outside") {
+                    op[Resize::EXCLUDE_OUTSIDE].i = attr.i();
+                }
+                else if (attr.name() == "cubic_coeff_a") {
+                    op[Resize::EXTRAPOLATION_VALUE].f = attr.f();
+                }
+                else if (attr.name() == "mode") {
+                    if(attr.s() == "nearest") op[Resize::MODE].i = Resize::NEAREST;
+                    if(attr.s() == "linear") op[Resize::MODE].i = Resize::LINEAR;
+                    if(attr.s() == "cubix") op[Resize::MODE].i = Resize::CUBIC;
+                }
+                else if(attr.name() == "nearest_mode") {
+                    op[Resize::NEAREST_MODE].i = 1;
+                }
+            }
+            graph->createNode(name, op);
+        }
         else {
-            fprintf(stderr, " not support %s!\n", op.c_str());
+            LOGE("not support %s!\n", op.c_str());
         }
     }
     return 0;
+}
 }

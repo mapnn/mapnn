@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_crop);
 
+namespace mapnn {
 inline bool map_ref_crop::request(Operator& op) {
     return op.type == OpType_Crop;
 }
 inline bool map_ref_crop::run(Graph* graph, Node* node) {
     node->setKernel(new RefCrop());
     return true;
+}
 }

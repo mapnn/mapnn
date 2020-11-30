@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_div);
 
+namespace mapnn {
 inline bool map_ref_div::request(Operator& op) {
     return op.type == OpType_Div;
 }
 inline bool map_ref_div::run(Graph* graph, Node* node) {
     node->setKernel(new RefDiv());
     return true;
+}
 }

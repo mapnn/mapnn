@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Elu {
 public:
     enum OP_TYPE {
@@ -29,5 +30,6 @@ public:
 };
 inline Elu::Elu(const Operator& op){
     alpha = op[ALPHA].f;
+}
 }
 #endif // __MAPNN_ELU_H__

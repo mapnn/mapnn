@@ -20,6 +20,7 @@
 #include "op_type_generated.h"
 #include "type.h"
 
+namespace mapnn {
 class Operator{
 private: 
     Parameter p[MAX_PARAMETER] = {{0}};
@@ -58,5 +59,5 @@ inline Operator::Operator(const Operator& op, OpType t) { *this = op;type=t;}
 inline Parameter& Operator::operator[](int n){ return p[n]; }
 inline const Parameter& Operator::operator[](int n)const{ return p[n]; }
 inline Operator::Operator(OpType t):type(t){}
-
+}
 #endif // __MAPNN_OPERATOR_H__

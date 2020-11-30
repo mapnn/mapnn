@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class LeakyRelu {
 public:
     enum OP_TYPE {
@@ -29,5 +30,6 @@ public:
 };
 inline LeakyRelu::LeakyRelu(const Operator& op){
     alpha = op[ALPHA].f;
+}
 }
 #endif // __MAPNN_LEAKYRELU_H__

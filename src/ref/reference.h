@@ -16,6 +16,7 @@
 #ifndef __MAPNN_REFERENCE_H__
 #define __MAPNN_REFERENCE_H__
 
+#include "log.h"
 #include "kernel.h"
 
 // Not Support.
@@ -53,12 +54,19 @@ DECLARE_KERNEL(RefGemm)
 
 #include "pad.h"
 DECLARE_KERNEL(RefPad)
+
 #include "reshape.h"
-
 DECLARE_KERNEL(RefReshape)
-#include "transpose.h"
 
+#include "resize.h"
+DECLARE_KERNEL(RefResize)
+
+#include "upsample.h"
+DECLARE_KERNEL(RefUpsample)
+
+#include "transpose.h"
 DECLARE_KERNEL(RefTranspose)
+
 #include "slice.h"
 DECLARE_KERNEL(RefSlice)
 

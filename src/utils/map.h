@@ -20,7 +20,10 @@
 #include "graph.h"
 #include "node.h"
 
+#define OPTION(exp) [](Operator& op)->bool{return exp;}
+
 #define DECLARE_OPTIMAL_MAP(map)                                \
+namespace mapnn {                                               \
 class map: public Map {                                         \
 public:                                                         \
     map(bool (*option)(Operator&)):Map(option){}                \
@@ -28,10 +31,11 @@ public:                                                         \
     const MapStage getStage() override { return STAGE_OPTIMAL; }\
     bool request(Operator& op) override;                        \
     bool run(Graph* graph, Node* node) override;                \
-};
-#define OPTION(exp) [](Operator& op)->bool{return exp;}
+};                                                              \
+}
 
 #define DECLARE_FUSION_MAP(map)                                 \
+namespace mapnn {                                               \
 class map: public Map {                                         \
 public:                                                         \
     map(bool (*option)(Operator&)):Map(option){}                \
@@ -39,10 +43,11 @@ public:                                                         \
     const MapStage getStage() override { return STAGE_FUSION; } \
     bool request(Operator& op) override;                        \
     bool run(Graph* graph, Node* node) override;                \
-};
-#define OPTION(exp) [](Operator& op)->bool{return exp;}
+};                                                              \
+}
 
 #define DECLARE_KERNEL_MAP(map)                                 \
+namespace mapnn {                                               \
 class map: public Map {                                         \
 public:                                                         \
     map(bool (*option)(Operator&)):Map(option){}                \
@@ -50,9 +55,10 @@ public:                                                         \
     const MapStage getStage() override { return STAGE_KERNEL; } \
     bool request(Operator& op) override;                        \
     bool run(Graph* graph, Node* node) override;                \
-};
-#define OPTION(exp) [](Operator& op)->bool{return exp;}
+};                                                              \
+}
 
+namespace mapnn {
 class Map {
 private:
     bool (*option_)(Operator&) = NULL;
@@ -80,6 +86,7 @@ inline bool Map::request(Operator& op) {
 inline bool Map::option(Operator& op) {
     if(option_ == NULL) return true;
     return option_(op);
+}
 }
 
 #endif // __MAPNN_MAP_H__

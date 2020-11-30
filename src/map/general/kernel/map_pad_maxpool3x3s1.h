@@ -17,6 +17,7 @@
 
 DECLARE_KERNEL_MAP(map_pad_maxpool3x3s1);
 
+namespace mapnn {
 inline bool map_pad_maxpool3x3s1::request(Operator& op) {
     return op.type == OpType_MaxPool &&
         op[Pool::WKERNEL].i == 3  &&
@@ -41,4 +42,5 @@ inline bool map_pad_maxpool3x3s1::run(Graph* graph, Node* node) {
     node->src_insert(npad);
     node->setKernel(new RefMaxPool(), op);
     return true;
+}
 }

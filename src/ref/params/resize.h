@@ -18,32 +18,45 @@
 
 #include "operator.h"
 
-class Reshape {
+namespace mapnn {
+class Resize {
 public:
+    enum RESIZE_MODE{
+        NEAREST         = 1,
+        LINEAR          = 2,
+        CUBIC           = 3,
+    };
+    enum TRANSFORMATION_MODE{
+        HALF_PIXEL          = 1,
+        PYTORCH_HALF_PIXEL  = 2,
+        ALIGN_CORNERS       = 3,
+        ASYMMETRIC          = 4,
+        TF_CROP_AND_RESIZE  = 5,
+    };
     enum OP_TYPE {
-        HEIGHT          = 1,
-        WIDTH           = 2,
-        HEIGHT_SCALE    = 3,
-        WIDTH_SCALE     = 4,
-        RESIZE_MODE     = 5,
-        PAD_MODE        = 6,
-        INTERP_MODE     = 8,
+        TRANSFORMATION_MODE     = 1,
+        CUBIC_COEFF_A           = 2,
+        EXCLUDE_OUTSIDE         = 3,
+        EXTRAPOLATION_VALUE     = 4,
+        MODE                    = 5,
+        NEAREST_MODE            = 6,
     };
 public:
-    int height = 0, width = 0;
-    float height_scale = 0.f, width_scale = 0.f;
-    int resize_mode = 1;
-    int interp_mode = 1;
-    int pad_model   = 1;
-    Reshape(const Operator& op);
+    int coordinate_transformation_mode = 0;
+    float cubic_coeff_a = -0.75f;
+    int exclude_outside = 0;
+    float extrapolation_value = 0.f;
+    int mode = 0;
+    int nearest_mode = 0;
+    Resize(const Operator& op);
 };
-inline Reshape::Reshape(const Operator& op) {
-    height          = op[Reshape::HEIGHT].i;
-    width           = op[Reshape::WIDTH].i;
-    height_scale    = op[Reshape::HEIGHT_SCALE].i;
-    width_scale     = op[Reshape::WIDTH_SCALE].i;
-    resize_mode     = op[Reshape::RESIZE_MODE].i;
-    pad_mode        = op[Reshape::PAD_MODE].i;
-    interp_mode     = op[Reshape::INTERP_MODE].i;
+inline Resize::Resize(const Operator& op) {
+    coordinate_transformation_mode  = op[TRANSFORMATION_MODE].i;
+    cubic_coeff_a                   = op[CUBIC_COEFF_A].f;
+    exclude_outside                 = op[EXCLUDE_OUTSIDE].i;
+    extrapolation_value             = op[EXTRAPOLATION_VALUE].f;
+    mode                            = op[MODE].i;
+    nearest_mode                    = op[NEAREST_MODE].i;
+}
 }
 #endif // __MAPNN_RESIZE_H__

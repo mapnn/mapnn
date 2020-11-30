@@ -21,6 +21,7 @@
 #include <math.h>
 #include "type.h"
 
+namespace mapnn {
 class LUVAB;
 class Tensor {
 protected:
@@ -69,7 +70,8 @@ public:
     const size_t length() const;
     void setShape(int u, int v, int a, int b);
     void setLayout(LayoutType layout);
-    bool valid();
+    bool valid() const;
+    bool empty() const;
 
 };
 
@@ -91,4 +93,5 @@ inline float* Tensor::data()                     {return (float*)data_;}
 inline float* Tensor::data() const               {return (float*)data_;}
 inline float& Tensor::operator[](int i)          { return ((float*)data_)[i]; }
 inline const float& Tensor::operator[](int i)const { return ((const float*)data_)[i]; }
+}
 #endif // __MAPNN_TENSOR_H__

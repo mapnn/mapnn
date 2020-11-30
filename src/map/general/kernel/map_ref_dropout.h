@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_dropout);
 
+namespace mapnn {
 inline bool map_ref_dropout::request(Operator& op) {
     return op.type == OpType_Dropout;
 }
 inline bool map_ref_dropout::run(Graph* graph, Node* node) {
     node->setKernel(new RefDropout());
     return true;
+}
 }

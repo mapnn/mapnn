@@ -18,6 +18,7 @@
 
 #include "operator.h"
 
+namespace mapnn {
 class Flatten {
 public:
     enum OP_TYPE {
@@ -29,5 +30,6 @@ public:
 };
 inline Flatten::Flatten(const Operator& op){
     axis = op[AXIS].i;
+}
 }
 #endif // __MAPNN_FLATTEN_H__

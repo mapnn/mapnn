@@ -17,10 +17,12 @@
 
 DECLARE_KERNEL_MAP(map_ref_global_avgpool);
 
+namespace mapnn {
 inline bool map_ref_global_avgpool::request(Operator& op) {
     return op.type == OpType_GlobalAveragePool;
 }
 inline bool map_ref_global_avgpool::run(Graph* graph, Node* node) {
     node->setKernel(new RefGlobalAvgPool());
     return true;
+}
 }

@@ -15,12 +15,14 @@
 
 #include "reference.h"
 #include <math.h>
+#include "pad.h"
+namespace mapnn {
 void RefPow::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW input(ins[0]); 
     L1CHW power(ins[1]); 
     L1CHW output(out); 
     if(power.c!=input.c||power.h!=input.h||power.w!=input.w) {
-        fprintf(stderr, "Power not support broadcasting\n");
+        LOGE("Power not support broadcasting\n");
     }
     for(int q = 0; q < output.c; q++) {
         const float* ptr = input.data + input.hw*q;
@@ -31,4 +33,5 @@ void RefPow::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
             *outptr++ = pow(*ptr++, *pptr++);
         }
     }
+}
 }
