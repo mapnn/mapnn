@@ -1,0 +1,12 @@
+on: [push, pull_request]
+jobs:
+  android-aarch64:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: submodule
+      run:  git submodule update --init
+    - name: configure
+      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/android-armv8a.toolchain.cmake
+    - name: build
+      run:  cmake --build build -j 2

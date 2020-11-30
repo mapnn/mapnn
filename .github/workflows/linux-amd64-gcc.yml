@@ -1,0 +1,17 @@
+on: [push, pull_request]
+jobs:
+  linux-gcc:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: update
+      run:  sudo apt-get update
+    - name: submodule
+      run:  git submodule update --init
+    - name: configure
+      env:
+        CC: gcc
+        CXX: g++
+      run:  mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release
+    - name: build
+      run:  cmake --build build -j 2

@@ -1,0 +1,13 @@
+on: [push, pull_request]
+jobs:
+  ios-clang:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: submodule
+      run:  git submodule update --init
+    - name: configure
+      run:  mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/ios.toolchain.cmake
+    - name: build
+      run: cmake --build build -j 2
+
