@@ -7,6 +7,6 @@ jobs:
     - name: submodule
       run:  git submodule update --init
     - name: configure
-      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/android-armv7a.toolchain.cmake
+      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/Android-armv7a.toolchain.cmake
     - name: build
       run:  cmake --build build -j 2

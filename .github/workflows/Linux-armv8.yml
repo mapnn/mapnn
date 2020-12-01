@@ -1,0 +1,14 @@
+on: [push, pull_request]
+jobs:
+  linux-gcc-aarch64:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: update
+      run:  sudo apt-get update && sudo apt-get install g++-aarch64-linux-gnu
+    - name: submodule
+      run:  git submodule update --init
+    - name: configure
+      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/Linux-arm64.toolchain.cmake
+    - name: build
+      run:  cmake --build build -j 2

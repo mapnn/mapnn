@@ -3,7 +3,7 @@
 ````
 ############################
 ##  set the build directory.
-build_DIR=build_android_arm64-v8a
+build_DIR=build_android_armv8a
 
 ################################################
 ##  remove build directory and make the new one.
@@ -18,8 +18,8 @@ pushd $build_DIR
 #####################
 ## cmake with params.
 cmake ../../ \
-    -DMCNN_BUID_WITH_NEON=OFF \
-    -DCMAKE_TOOLCHAIN_FILE=../../toolchains/android-arm64-v8a.toolchain.cmake 
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_TOOLCHAIN_FILE=../../toolchains/Android-armv8a.toolchain.cmake 
 
 #######################################################
 ## make with 8 thread and install to default directory.

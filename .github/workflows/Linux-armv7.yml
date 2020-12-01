@@ -9,7 +9,7 @@ jobs:
     - name: submodule
       run:  git submodule update --init
     - name: configure
-      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/linux-armv7hl.toolchain.cmake
+      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/Linux-armv7hl.toolchain.cmake
     - name: build
       run:  cmake --build build -j 2
   linux-gcc-armv7l:
@@ -21,6 +21,6 @@ jobs:
     - name: submodule
       run:  git submodule update --init
     - name: configure
-      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/linux-armv7l.toolchain.cmake
+      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/Linux-armv7l.toolchain.cmake
     - name: build
       run:  cmake --build build -j 2

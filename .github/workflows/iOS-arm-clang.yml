@@ -7,7 +7,7 @@ jobs:
     - name: submodule
       run:  git submodule update --init
     - name: configure
-      run:  mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/ios.toolchain.cmake
+      run:  mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/iOS.toolchain.cmake
     - name: build
       run: cmake --build build -j 2
 

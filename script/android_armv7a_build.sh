@@ -20,7 +20,7 @@ pushd $build_DIR
 ## cmake with params
 cmake ../../ \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_TOOLCHAIN_FILE=../../toolchains/android-armv7a.toolchain.cmake 
+    -DCMAKE_TOOLCHAIN_FILE=../../toolchains/Android-armv7a.toolchain.cmake 
 
 
 #######################################################
