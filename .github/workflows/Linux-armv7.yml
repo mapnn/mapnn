@@ -1,0 +1,26 @@
+on: [push, pull_request]
+jobs:
+  linux-gcc-armv7lh:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: update
+      run:  sudo apt-get update && sudo apt-get install g++-arm-linux-gnueabihf
+    - name: submodule
+      run:  git submodule update --init
+    - name: configure
+      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/linux-armv7hl.toolchain.cmake
+    - name: build
+      run:  cmake --build build -j 2
+  linux-gcc-armv7l:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: update
+      run:  sudo apt-get update && sudo apt-get install g++-arm-linux-gnueabi
+    - name: submodule
+      run:  git submodule update --init
+    - name: configure
+      run:  mkdir build && cd build && cmake ..  -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../toolchains/linux-armv7l.toolchain.cmake
+    - name: build
+      run:  cmake --build build -j 2

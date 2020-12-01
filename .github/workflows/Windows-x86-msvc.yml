@@ -1,0 +1,12 @@
+on: [push, pull_request]
+jobs:
+  windows-msvc:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: submodule
+      run:  git submodule update --init
+    - name: configure
+      run:  mkdir build && cd build && cmake .. -T v142,host=x64 -A Win32
+    - name: build
+      run:  cmake --build build --config Release -j 2
