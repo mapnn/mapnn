@@ -1,7 +1,7 @@
 mapnn
 ---
 [![License](https://img.shields.io/badge/license-Apache2.0-blue)](https://github.com/mapnn/mapnn) 
-![Build](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-amd64-gcc.yml/badge.svg?branch=main&event=status)
+[![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-amd64-gcc.yml/badge.svg?branch=main&event=status)]((https://github.com/mapnn/mapnn))
 
 ## 1. Introduction
 
@@ -16,12 +16,12 @@ mapnn is designed to combine the strengths of different high-performance neutral
 
 | System         | armv7 | armv8 | x86 | amd64 |
 | :------------: | :---: | :---: | :--: | :--: |
-| Ubuntu(GCC)    | — | — | — | ![.github/workflows/linux-amd64-gcc.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-amd64-gcc.yml/badge.svg?branch=main&event=status) |
-| Ubuntu(Clang)  | — | — | — | ![.github/workflows/Ubuntu-x64-clang.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-clang.yml/badge.svg?branch=master) |
-| Linux          | ![.github/workflows/linux-armv7l.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-armv7l.yml/badge.svg?branch=master) | ![.github/workflows/Linux-armv8.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/Linux-armv8.yml/badge.svg?branch=master) | — | — |
-| Windows(MSVC)  | — | — | ![.github/workflows/Windows-x86-msvc.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/Windows-x86-msvc.yml/badge.svg?branch=master) | ![.github/workflows/windows-amd64-msvc.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/windows-amd64-msvc.yml/badge.svg?branch=master) |
-| Android        | ![.github/workflows/Android-armv7a.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-armv7a.yml/badge.svg?branch=master) | ![.github/workflows/Android-armv8a.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-armv8a.yml/badge.svg?branch=master) | ![.github/workflows/Android-x86.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-x86.yml/badge.svg?branch=master) | ![.github/workflows/Android-x64.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-x64.yml/badge.svg?branch=master) |
-| MacOS(Clang)   | — | — | — | ![.github/workflows/MacOS-amd64-clang.yml](https://github.com/mapnn/mapnn/workflows/.github/workflows/MacOS-amd64-clang.yml/badge.svg?branch=master) |
+| Ubuntu(GCC)    | — | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-gcc.yml/badge.svg?branch=main&event=status) |
+| Ubuntu(Clang)  | — | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-clang.yml/badge.svg?branch=master) |
+| Linux          | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-armv7l.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Linux-armv8.yml/badge.svg?branch=master) | — | — |
+| Windows(MSVC)  | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Windows-x86-msvc.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/windows-amd64-msvc.yml/badge.svg?branch=master) |
+| Android        | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-armv7a.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-armv8a.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-x86.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-x64.yml/badge.svg?branch=master) |
+| MacOS(Clang)   | — | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/MacOS-amd64-clang.yml/badge.svg?branch=master) |
 
 ## 4. How To build
 
