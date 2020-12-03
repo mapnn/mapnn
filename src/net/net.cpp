@@ -45,7 +45,11 @@ bool Net::load(const char* filepath) {
 }
 bool Net::prepare(int channel, int height, int width) {
     m_model_->draw(m_graph_);
-
+    if(!channel||!height||!width) {
+        channel = m_model_->c;
+        height  = m_model_->h;
+        width   = m_model_->w;
+    }   
     Tensor input_tensor(channel, height, width, FLOAT, (void*)NULL);
 
     m_graph_->show("graph_initial.dot");

@@ -80,7 +80,7 @@ int OnnxModel::create_tensor_node_(Graph* graph) {
                 data = tensorP.has_raw_data() ? (const int64_t*)tensorP.raw_data().data() : tensorP.int64_data().data();
                 break;
             default:
-                printf("ERROR!\n");
+                LOGE("error tensor type!\n");
         }
 
         int N = 1, C = 1, H = 1, W = 1;
@@ -117,6 +117,33 @@ int OnnxModel::create_tensor_node_(Graph* graph) {
         Tensor tensor(1, 1, 1, N*C*H*W, FLOAT, data);
         tensor_node_list_.insert(std::make_pair(name, &tensorP));
         graph->createNode(name, tensor);
+    }
+    if(graphP.input_size()-graphP.initializer_size()!=1 && 
+        graphP.input_size()!=1) {
+        LOGE("Not Support input(%d-%d) > 1\n",graphP.initializer_size(), graphP.input_size());
+    }
+    const onnx::ValueInfoProto& input = graphP.input(0);
+    const onnx::TensorShapeProto tsp = input.type().tensor_type().shape();
+    switch(tsp.dim_size()) {
+        case 4:
+            n = 1;
+            c = tsp.dim(1).dim_value();
+            h = tsp.dim(2).dim_value();
+            w = tsp.dim(3).dim_value();
+            break;
+        case 3:
+            c = tsp.dim(0).dim_value();
+            h = tsp.dim(1).dim_value();
+            w = tsp.dim(2).dim_value();
+            break;
+        case 2:
+            h = tsp.dim(0).dim_value();
+            w = tsp.dim(1).dim_value();
+            break;
+        case 1:
+        default:
+            w = tsp.dim(0).dim_value();
+            break;
     }
     return 0;
 }
@@ -261,7 +288,7 @@ int OnnxModel::create_operater_node_(Graph* graph) {
                             data = tensorP.has_raw_data() ? (const int64_t*)tensorP.raw_data().data() : tensorP.int64_data().data();
                             break;
                         default:
-                            printf("ERROR!\n");
+                            LOGE("error tensor type!\n");
                     }
                     switch(tensorP.dims_size()) {
                         default:
@@ -468,9 +495,9 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             Operator op(OpType_GlobalMaxPool);
             graph->createNode(name, op);
         }
-        else if (op == "InstanceNormalization") {
-            LOGE("%-16s\n", "InstanceNorm");
-        }
+        //else if (op == "InstanceNormalization") {
+        //    LOGE("%-16s\n", "InstanceNorm");
+        //}
         else if (op == "LeakyRelu") {
             Operator op(OpType_LeakyRelu);
             op[Elu::ALPHA].f = 1.0;
@@ -511,9 +538,9 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             }
             graph->createNode(name, op);
         }
-        else if (op == "MatMul") {
-            LOGE("%-16s\n", "InnerProduct");
-        }
+        //else if (op == "MatMul") {
+        //    LOGE("%-16s\n", "InnerProduct");
+        //}
         else if (op == "Max") {
             Operator op(OpType_Max);
             graph->createNode(name, op);
@@ -571,9 +598,9 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             Operator op(OpType_PRelu);
             graph->createNode(name, op);
         }
-        else if (op == "Reciprocal") {
-            LOGE("%-16s\n", "UnaryOp");
-        }
+        //else if (op == "Reciprocal") {
+        //    LOGE("%-16s\n", "UnaryOp");
+        //}
         else if (op == "Relu") {
             Operator op(OpType_Relu);
             graph->createNode(name, op);
@@ -605,9 +632,9 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             Operator op(OpType_Softmax);
             graph->createNode(name, op);
         }
-        else if (op == "Sqrt") {
-            LOGE("%-16s\n", "UnaryOp");
-        }
+        //else if (op == "Sqrt") {
+        //    LOGE("%-16s\n", "UnaryOp");
+        //}
         else if (op == "Sub") {
             Operator op(OpType_Sub);
             graph->createNode(name, op);
@@ -682,12 +709,10 @@ int OnnxModel::create_operater_node_(Graph* graph) {
                 else if(attr.name() == "scales") {
                     if (attr.floats_size() == 2) {
                         op[Upsample::WIDTH_SCALE].f = attr.floats(1);
-                        printf("%f %f\n", attr.floats(0), attr.floats(1));
                     }
                     else if (attr.floats_size() == 3) {
                         op[Upsample::HEIGHT_SCALE].f = attr.floats(1);
                         op[Upsample::WIDTH_SCALE].f = attr.floats(2);
-                        printf("%f %f %f\n", attr.floats(0), attr.floats(1), attr.floats(2));
                     }
                     else {
                         LOGE("resize error scale size %d\n",attr.floats_size());

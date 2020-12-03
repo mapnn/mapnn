@@ -122,7 +122,7 @@ int main(int argc, char** argv) {
     float* float_data = new float[C*H*W];
     { 
         BCTime tr("prepare net");
-        net->prepare(C, H, W);
+        net->prepare();
     }
 
     const float means[3] = {er, eg, eb};

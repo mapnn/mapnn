@@ -31,7 +31,7 @@ public:
     ~Net();
     bool load(const char* filepath);
     bool load(const char* filepath, const char* filepath1);
-    bool prepare(int channel, int height, int width);
+    bool prepare(int channel=0, int height=0, int width=0);
     bool inference(const float* data, int channle, int height, int width);
     bool tear();
     int getTensorNum();

@@ -85,7 +85,38 @@ int CaffeModel::draw(Graph* graph) {
         const caffe::LayerParameter& layer  = m_prototxt->layer(l);
         const std::string name = layer.name();
 
-        if(layer.type() == "AbsVal") {
+        if (layer.type() == "Input") {
+            const caffe::InputParameter& inputP = layer.input_param();
+            const caffe::BlobShape& bs = inputP.shape(0);
+            switch(bs.dim_size()) {
+                case 4:
+                    n = 1;
+                    c = bs.dim(1);
+                    h = bs.dim(2);
+                    w = bs.dim(3);
+                    break;
+                case 3:
+                    n = 1;
+                    c = bs.dim(0);
+                    h = bs.dim(1);
+                    w = bs.dim(2);
+                    break;
+                case 2:
+                    n = 1;
+                    c = 1;
+                    h = bs.dim(0);
+                    w = bs.dim(1);
+                    break;
+                case 1:
+                default:
+                    n = 1;
+                    c = 1;
+                    h = 1;
+                    w = bs.dim(0);
+                    break;
+            }
+        }
+        else if(layer.type() == "AbsVal") {
             Operator op(OpType_Abs);
             graph->createNode(name, op);
         }
