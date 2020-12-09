@@ -175,7 +175,7 @@ void classification(std::string model, std::string img, float mr, float mg, floa
 
 
     {
-        Tensor& output = net->getTensor("resnetv15_dense0_fwd");
+        Tensor output = net->getTensor();
 
         float* data = output.data();
         int max_i1 = 0, max_i2 = 0, max_i3 = 0;

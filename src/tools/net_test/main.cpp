@@ -156,7 +156,7 @@ int main(int argc, char** argv) {
         net->inference(float_data, C, H, W);
     }
     printf("%s\n", output_name.c_str());
-    Tensor& output = net->getTensor(output_name.c_str());
+    Tensor output = net->getTensor(output_name.c_str());
 
     float* data = output.data();
     int c_strip = output.v() * output.a();

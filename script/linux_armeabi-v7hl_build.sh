@@ -8,6 +8,6 @@ pushd $build_DIR
 cmake ../../ \
     -DCMAKE_INSTALL_PREFIX=install \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_TOOLCHAIN_FILE=../../toolchains/Linux-armv7l.toolchain.cmake
+    -DCMAKE_TOOLCHAIN_FILE=../../toolchains/Linux-armv7hl.toolchain.cmake
 make install -j16
 popd

@@ -1,7 +1,7 @@
 mapnn
 ---
 [![License](https://img.shields.io/badge/license-Apache2.0-blue)](https://github.com/mapnn/mapnn) 
-[![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-amd64-gcc.yml/badge.svg?branch=main&event=status)]((https://github.com/mapnn/mapnn))
+[![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-amd64-gcc.yml/badge.svg?branch=main&event=status)](https://github.com/mapnn/mapnn)
 
 ## 1. Introduction
 
@@ -23,9 +23,11 @@ mapnn is designed to combine the strengths of different high-performance neutral
 | Android        | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-armv7a.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-armv8a.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-x86.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Android-x64.yml/badge.svg?branch=master) |
 | MacOS(Clang)   | — | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/MacOS-amd64-clang.yml/badge.svg?branch=master) |
 
-## 4. How To build
+## 4. How to build
 
 * [Build for Linux-x86-64](script/Linux_x86-64_build.sh)
+* [Build for Linux-armv7l](script/linux_armeabi-v7l_build.sh)
+* [Build for Linux-armv7hl](script/linux_armeabi-v7hl_build.sh)
 * [Build for android-v7a](script/Android_armv7a_build.sh)
 * [Build for android-v8a](script/Android_armv8a_build.sh)
 
@@ -48,20 +50,32 @@ According to the step 4, Compiling and install this library with your toolchain.
 ## 6. How to use the API
 
 ```c++
-    int ret; 
-    mapnn::Net* net = new mapnn::Net(); // new object
-    ret = net->load("model_path.onnx"); // load model
-    //ret = net->load("model_path.proto", "model_path.caffemodel");
-    ret = net->prepare(3, 224, 224);    // prepare net
-    ret = net->inference(float_data, 3, 224, 224); // inference
-    Tensor& output = net->getTensor("output_name");
-    delete net;
+int ret; 
+mapnn::Net* net = new mapnn::Net(); // new object
+ret = net->load("model_path.onnx"); // load model
+//ret = net->load("model_path.proto", "model_path.caffemodel");
+ret = net->prepare(3, 224, 224);    // prepare net
+ret = net->inference(float_data, 3, 224, 224); // inference
+Tensor& output = net->getTensor("output_name");
+delete net;
 ```
 
-## 7. How to contribution 
+## 7. How to contribute
 
 * Add new operation from other training frameworks.
 * Add new kernel from other inference frameworks.
-* Improve this frameworks and do good pull Request..
+* Improve frameworks and do good pull Request.
 * Fix and Report the issue on the Github issues page. 
-* Star this project.
+* Star or fork this project.
+
+> * notice A: if you contribute a good code, please append(or apply for new code) the follow boilerplate notice to your code:
+>        Copyright [yyyy] [name of copyright owner]
+>
+> * notice B: mapnn include some third party libraries as following:
+>   [3rdparty/flatbuffers](3rdparty/flabuffers/LICENSE.txt)
+>   [3rdparty/MNN](3rdparty/README.md)
+>   [3rdparty/ncnn](3rdparty/ncnn/LICENSE.txt)
+>   [3rdparty/protobuf](3rdparty/protobuf/LICENSE)
+>   [3rdparty/stb](3rdparty/stb/LICENSE)
+>   [3rdparty/Tengine](3rdparty/tengine/LICENSE)
+

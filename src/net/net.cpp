@@ -18,6 +18,7 @@
 #include <vector>
 #include <stack>
 
+#include "model.h"
 #include "onnx_model.h"
 #include "caffe_model.h"
 #include "graph.h"
@@ -36,21 +37,28 @@ Net::~Net() {
     delete m_graph_;
 }
 bool Net::load(const char* filepath, const char* filepath1) {
+    if(m_model_) delete m_model_;
     m_model_ = new CaffeModel();
     return m_model_->load(filepath, filepath1);
 }
 bool Net::load(const char* filepath) {
+    if(m_model_) delete m_model_;
     m_model_ = new OnnxModel();
     return m_model_->load(filepath);
 }
 bool Net::prepare(int channel, int height, int width) {
     m_model_->draw(m_graph_);
     if(!channel||!height||!width) {
-        channel = m_model_->c;
-        height  = m_model_->h;
-        width   = m_model_->w;
+        channel_ = m_model_->c;
+        height_  = m_model_->h;
+        width_   = m_model_->w;
     }   
-    Tensor input_tensor(channel, height, width, FLOAT, (void*)NULL);
+    else {
+        channel_ = channel;
+        height_  = height;
+        width_   = width;
+    }
+    Tensor input_tensor(channel_, height_, width_, FLOAT, (void*)NULL);
 
     m_graph_->show("graph_initial.dot");
     {
@@ -89,6 +97,7 @@ bool Net::prepare(int channel, int height, int width) {
     return true;
 }
 bool Net::inference(const float* data, int channel, int height, int width) {
+    if(channel != channel_ || height != height_ || width != width_) return false;
     Tensor input(channel, height, width, FLOAT, data);
     {
         BCTime tr("graph infer main load");
@@ -111,16 +120,13 @@ const char* Net::getTensorName(int n) {
     }
     return (*(m_graph_->bOutput()))->name();
 }
-Tensor& Net::getTensor(const char* name) {
+Tensor Net::getTensor(const char* name) {
+    if(name == NULL) return (*(m_graph_->bOutput()))->getTensor();
     for(auto it = m_graph_->bOutput(); it != m_graph_->eOutput(); ++it) {
         if(0 == strcmp((*it)->name(), name)) {
             return (*it)->getTensor();
         }
     }
-    return (*(m_graph_->bOutput()))->getTensor();
-}
-
-bool Net::tear() {
-    return true;
+    return Tensor();
 }
 }

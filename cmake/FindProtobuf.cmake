@@ -1,4 +1,6 @@
-# If protobuf is found - libprotobuf target is available
+cmake_minimum_required(VERSION 3.12)
+
+option(HAVE_PTHREAD  "Enable pthread" ON)
 
 set(HAVE_PROTOBUF FALSE)
 

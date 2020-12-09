@@ -16,14 +16,17 @@
 #ifndef __MAPNN_NET_H__
 #define __MAPNN_NET_H__
 
-#include "model.h"
 #include "tensor.h"
 
 namespace mapnn {
 class Graph;
+class Model;
 class Net
 {
 private:
+    int channel_ = 0;
+    int height_  = 0;
+    int width_   = 0;
     Graph* m_graph_ = NULL;
     Model* m_model_ = NULL;
 public:
@@ -33,10 +36,9 @@ public:
     bool load(const char* filepath, const char* filepath1);
     bool prepare(int channel=0, int height=0, int width=0);
     bool inference(const float* data, int channle, int height, int width);
-    bool tear();
     int getTensorNum();
     const char*  getTensorName(int n);
-    Tensor& getTensor(const char* name);
+    Tensor getTensor(const char* name = NULL);
 };
 }
 #endif // __MAPNN_NET_H__
