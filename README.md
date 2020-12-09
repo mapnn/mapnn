@@ -1,7 +1,7 @@
 mapnn
 ---
 [![License](https://img.shields.io/badge/license-Apache2.0-blue)](https://github.com/mapnn/mapnn) 
-[![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-amd64-gcc.yml/badge.svg?branch=main&event=status)](https://github.com/mapnn/mapnn)
+[![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-gcc.yml/badge.svg?branch=main&event=status)](https://github.com/mapnn/mapnn)
 
 ## 1. Introduction
 
@@ -10,7 +10,7 @@ mapnn is designed to combine the strengths of different high-performance neutral
 ## 2. Support most commonly used CNN network
 
 * caffe: alexnet, googlenet inceptionv3/v4 mobilenetv1/v2, resnet, vgg16
-* onnx : alexnet, googlenet inceptionv1/v2 mobilenetv2, resnet, vgg16, shufflenet1.1, yolov2, vgg
+* onnx : alexnet, googlenet inceptionv1/v2 mobilenetv2, resnet, vgg16, shufflenet1.1, yolov2
 
 ## 3. Build status matrix
 
@@ -25,11 +25,11 @@ mapnn is designed to combine the strengths of different high-performance neutral
 
 ## 4. How to build
 
-* [Build for Linux-x86-64](script/Linux_x86-64_build.sh)
+* [Build for Linux-x86-64](script/linux_x86-64_build.sh)
 * [Build for Linux-armv7l](script/linux_armeabi-v7l_build.sh)
 * [Build for Linux-armv7hl](script/linux_armeabi-v7hl_build.sh)
-* [Build for android-v7a](script/Android_armv7a_build.sh)
-* [Build for android-v8a](script/Android_armv8a_build.sh)
+* [Build for android-v7a](script/android_armv7a_build.sh)
+* [Build for android-v8a](script/android_armv8a_build.sh)
 
 ## 5. How to test kernel
 

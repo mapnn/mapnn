@@ -6,7 +6,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 option(MAPNN_BUILD_ONNX         "build with onnx"   ON) # FIXME:
 option(MAPNN_BUILD_CAFFE        "build with caffe"  ON) # FIXME:
-option(MAPNN_BUILD_SHARED_LIB   "build shared lib"  OFF)
+option(MAPNN_BUILD_SHARED_LIB   "build shared lib"  ON)
 
 if(MAPNN_BUILD_ONNX OR MAPNN_BUILD_CAFFE)
     option(WITH_PROTOBUF "Enable libprotobuf" ON)
