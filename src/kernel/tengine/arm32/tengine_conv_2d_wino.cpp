@@ -30,8 +30,6 @@ void tengine_conv_2d_wino::init(const Tensors& ins, Tensor& out, Tensors& tmp, O
     L1VAB temp1(tmp[1]);
     const int extented_filter_h = conv.hdilation * (conv.hkernel - 1) + 1;
     const int extented_filter_w = conv.wdilation * (conv.wkernel - 1) + 1;
-    const int output_xy = output.hw;
-    const int kernel_size = input.c * conv.hkernel * conv.wkernel;
     output.c = conv.outch;
     output.h = (input.h - extented_filter_h) / conv.hstride + 1;
     output.w = (input.w - extented_filter_w) / conv.wstride + 1;
@@ -100,7 +98,6 @@ void tengine_conv_2d_wino::run(const Tensors& ins, Tensor& out, Tensors& tmp, Op
     int resi_h = block_h * TILE - output_h;
     int nn_cout = output_c / KER_COUT_UNIT;
     int nn_coutx12 = nn_cout * KER_COUT_UNIT;
-    int nn_cout4 = (output_c - nn_coutx12) / 4;
 
     // step1. interleave_ker
     float* kernel_interleaved = weight.data;
@@ -113,7 +110,6 @@ void tengine_conv_2d_wino::run(const Tensors& ins, Tensor& out, Tensors& tmp, Op
     int L2_CACHE_SIZE = 1024 * 1024;
     int L2_n = L2_CACHE_SIZE * 0.3 / (ELEM_SIZE * input_c * sizeof(float));
     L2_n = L2_n > 12 ? (L2_n / 12 * 12) : 12;
-    int block_4 = (block_hw+3)/4;
 
     for(int n = 0; n < output_n; n++)
     {

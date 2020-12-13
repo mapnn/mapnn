@@ -16,3 +16,6 @@ target_sources(utils PUBLIC
         )
 target_include_directories(utils PUBLIC ${CMAKE_CURRENT_LIST_DIR})
 target_link_libraries(utils PUBLIC flat)
+if(CMAKE_SYSTEM_NAME MATCHES "^Android")
+    target_link_libraries(utils PUBLIC log)
+endif()

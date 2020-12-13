@@ -13,6 +13,7 @@ target_sources(layer_test PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/test.cpp
     ${CMAKE_CURRENT_LIST_DIR}/test.h
     )
-target_link_libraries(layer_test PUBLIC layout)
 target_link_libraries(layer_test PUBLIC core)
+target_link_libraries(layer_test PUBLIC kernel::ref)
+target_link_libraries(layer_test PUBLIC map)
 install(TARGETS layer_test RUNTIME DESTINATION bin)

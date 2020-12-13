@@ -363,7 +363,7 @@ void Node::sik_insert(Node* node) {
         sik_->push_back(node);
         return ;
     }
-    for(int pos = 0; pos < sik_->size(); pos++) {
+    for(size_t pos = 0; pos < sik_->size(); pos++) {
         Node* back = this->sik_get(pos);
         list<Node*>* back_source = back->getSource();
         node->sik_extend(back);

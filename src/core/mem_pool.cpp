@@ -53,21 +53,21 @@ void MemPool::show() {
     if(flux_length_.size() < queues_.size()) flux_length_.resize(queues_.size());
     if(flux_memory_.size() < queues_.size()) flux_memory_.resize(queues_.size());
     for(size_t i = 0; i < flux_length_.size(); i++) {
-        printf("FLUXS: %lu\n", flux_length_[i]);
+        LOGE("FLUXS: %u\n", (unsigned int)flux_length_[i]);
     }
     for(size_t i = 0; i < const_length_.size(); i++) {
-        printf("CONST: %lu\n", const_length_[i]);
+        LOGE("CONST: %u\n", (unsigned int)const_length_[i]);
     }
     for(size_t i = 0; i < temp_length_.size(); i++) {
-        if(temp_length_[i]!=0)printf("TEMPS: %lu\n", temp_length_[i]);
+        if(temp_length_[i]!=0)LOGE("TEMPS: %u\n", (unsigned int)temp_length_[i]);
     }
     for(size_t i = 0; i < queues_.size(); i++) {
-        printf("%lu\t(%lu)\t", i, flux_length_[i]);
+        LOGE("%u\t(%u)\t", (unsigned int)i, (unsigned int)flux_length_[i]);
         for(auto node : *queues_[i]) {
             const Tensor& tensor = node->getTensor();
-            printf("\t  => %-11s(%lu)\n", node->name(), tensor.length());
+            LOGE("\t  => %-11s(%u)\n", node->name(), (unsigned int)tensor.length());
         }
-        printf("\n");
+        LOGE("\n");
     }
 }
 void MemPool::alloc() {

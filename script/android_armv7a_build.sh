@@ -6,6 +6,7 @@
 ##  set the build directory
 build_DIR=build_android_armv7a
 
+
 ################################################
 ##  remove build directory and make the new one.
 rm -r $build_DIR
@@ -15,6 +16,7 @@ mkdir $build_DIR
 #############################
 ## enter the build directory
 pushd $build_DIR
+
 
 #####################
 ## cmake with params

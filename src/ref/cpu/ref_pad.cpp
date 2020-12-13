@@ -29,14 +29,14 @@ void RefPad::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
     L1CHW output(out); 
     float* ptr = input.data;
     float* outptr = output.data;
-    const size_t wpad0b = pad.wpad0;
-    const size_t wpad1b = pad.wpad1;
+    const int wpad0b = pad.wpad0;
+    const int wpad1b = pad.wpad1;
     if(pad.mode != Pad::CONSTANT) {
         LOGE("Pad not support the mode.\n");
     }
     if(pad.value == 0) {
         for(int c = 0; c < output.c; c++) {
-            for(size_t h = 0; h < pad.hpad0; h++) {
+            for(int h = 0; h < pad.hpad0; h++) {
                 memset(outptr, 0, output.w*sizeof(float)); 
                 outptr+=output.w;
             }
@@ -49,7 +49,7 @@ void RefPad::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {
                 memset(outptr, 0, wpad1b*sizeof(float));
                 outptr += wpad1b;
             }
-            for(size_t h = 0; h < pad.hpad1; h++) {
+            for(int h = 0; h < pad.hpad1; h++) {
                 memset(outptr, 0, output.w*sizeof(float)); 
                 outptr+=output.w;
             }

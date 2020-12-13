@@ -16,7 +16,7 @@
 #define __MAPNN_LAYER_DEBUG_H__
 
 #include "operator.h"
-#include "conv.h"
+#include "reference.h"
 #include "node.h"
 #include "graph.h"
 

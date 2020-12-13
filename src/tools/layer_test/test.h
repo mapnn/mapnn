@@ -19,7 +19,7 @@
 #pragma once
 
 #include "operator.h"
-#include "conv.h"
+#include "reference.h"
 #include "node.h"
 #include "graph.h"
 #include "bctime.h"

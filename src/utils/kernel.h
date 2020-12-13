@@ -33,7 +33,7 @@ typedef std::vector<Tensor> Tensors;
 class Kernel {
 public:
     Kernel() = default;
-    ~Kernel() = default;
+    virtual ~Kernel() = default;
     virtual void init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) = 0;
     virtual void run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) = 0;
 };

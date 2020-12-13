@@ -77,7 +77,7 @@ void MNNConvDwF23MulTransUnit(float **cacheLine, const float *weigth, float *des
     _multiAndDestTransformCommon(cacheLine, weigth, dest, 3, ow);
 }
 void MNNConvDwF23SourceTransUnit(const float *source, float *dest, size_t unit) {
-    for (int x = 0; x < unit; ++x) {
+    for (size_t x = 0; x < unit; ++x) {
         auto dstX = dest + 4 * 4 * x;
         auto sx   = x * 2;
         Vec4 v[4];

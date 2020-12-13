@@ -21,8 +21,7 @@
 namespace mapnn {
 class Graph;
 class Model;
-class Net
-{
+class MAPNN_EXPORT Net {
 private:
     int channel_ = 0;
     int height_  = 0;

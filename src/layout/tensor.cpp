@@ -23,11 +23,6 @@
 #include "time.h"
 #include "memory.h"
 
-#ifdef __GNUC__
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#endif
-
 namespace mapnn {
 size_t get_unit_from_data_type(DataType dtype) { 
     switch(dtype) {
@@ -178,7 +173,3 @@ const size_t Tensor::length() const {
     return u_*v_*a_*b_*unit; 
 }
 }
-
-#ifdef __GNUC__
-#pragma GCC diagnostic pop
-#endif

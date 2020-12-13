@@ -14,4 +14,6 @@ target_sources(layer_debug PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/layer_debug.h
     )
 target_link_libraries(layer_debug PRIVATE core)
+target_link_libraries(layer_debug PRIVATE kernel::ref)
+target_link_libraries(layer_debug PRIVATE map)
 install(TARGETS layer_debug RUNTIME DESTINATION bin)

@@ -16,6 +16,18 @@
 #ifndef __MAPNN_TENSOR_H__
 #define __MAPNN_TENSOR_H__
 
+#ifdef _WIN64
+#define __DLL_EXPORTS__
+#ifdef __DLL_EXPORTS__
+#define MAPNN_EXPORT  __declspec(dllexport)
+#else
+#define MAPNN_EXPORT __declspec(dllimport)
+#endif
+#else // linux
+#define MAPNN_EXPORT __attribute__((visibility("default")))
+#endif
+
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -23,7 +35,7 @@
 
 namespace mapnn {
 class LUVAB;
-class Tensor {
+class MAPNN_EXPORT Tensor {
 protected:
     int* ref_ = NULL;
     int u_ = 0, v_ = 0, a_ = 0, b_ = 0;

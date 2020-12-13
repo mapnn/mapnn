@@ -53,27 +53,25 @@
     printf(__VA_ARGS__); \
 }
 #endif
-
-// for android
 #else
 #include <stdio.h>
 #define LOGI(...)  fprintf(stdout,__VA_ARGS__)
 #define LOGE(...)  fprintf(stderr,__VA_ARGS__)
 #ifdef __DEBUG_GRAPH__
-#define LOGDG(...)  printf(__VA_ARGS__)
+#define LOGDG(...) fprintf(stdout,__VA_ARGS__)
 #endif
 #ifdef __DEBUG_KERNEL__
-#define LOGDK(...)  printf(__VA_ARGS__)
+#define LOGDK(...)  fprintf(stdout,__VA_ARGS__)
 #endif
 
 #endif
 
 #ifndef LOGDG
-#define LOGDG
+#define LOGDG(...)
 #endif
 
 #ifndef LOGDK
-#define LOGDK
+#define LOGDK(...)
 #endif
 
 #endif // __MAPNN_LOG_H__

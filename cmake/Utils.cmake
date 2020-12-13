@@ -4,14 +4,18 @@ set(MAPNN_DEFINITIONS "")
 set(MAPNN_COMPILE_OPTIONS "") 
 set(MAPNN_3RDPARTY_DIR ${CMAKE_CURRENT_LIST_DIR}/3rdparty)
 
-if(UNIX OR APPLE)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -Wall")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -std=c++11")
-endif()
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread -Ofast -ffast-math")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Ofast -ffast-math")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -pthread -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -pthread -Wall")
+
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -O1")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -O1")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D__DEBUG__ -D__DEBUG_GRAPH__")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__DEBUG__ -D__DEBUG_GRAPH__")
+
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} -fvisibility=hidden -s")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -fvisibility=hidden -s")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} -Ofast -ffast-math")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Ofast -ffast-math")
 
 
 

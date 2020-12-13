@@ -107,8 +107,8 @@ int groupconv_test::run() {
                 graph->link(bias, node);
                 std::vector<Perf> perfs = run_test(graph, input_tensor, cycle);
                 for(size_t p = 0; p < perfs.size(); p++) {
-                    fprintf(fp,"%d,%d,%d,%d,%lu,%s,%6.5f,%6.5f,%6.5f\n", 
-                            kernel, stride, inh, inch, perfs.size(),
+                    fprintf(fp,"%d,%d,%d,%d,%u,%s,%6.5f,%6.5f,%6.5f\n", 
+                            kernel, stride, inh, inch, (unsigned int)perfs.size(),
                             perfs[p].name, perfs[p].ref_time, perfs[p].opt_time, perfs[p].test);
                 }
 

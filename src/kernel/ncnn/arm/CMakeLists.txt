@@ -13,5 +13,8 @@ target_link_libraries(kernel_ncnn PUBLIC kernel::ref)
 target_link_libraries(kernel_ncnn PUBLIC layout)
 #target_link_libraries(kernel_ncnn PUBLIC OpenMP::OpenMP_CXX)
 target_link_libraries(kernel_ncnn PUBLIC ncnn)
+target_compile_options(kernel_ncnn PRIVATE -Wno-unknown-pragmas)
+target_compile_options(kernel_ncnn PRIVATE -Wno-unused-variable)
+target_compile_options(kernel_ncnn PRIVATE -Wno-uninitialized)
 
 add_library(kernel::ncnn ALIAS kernel_ncnn)

@@ -6,6 +6,7 @@ endif()
 
 add_executable(nettest)
 target_sources(nettest PRIVATE main.cpp)
+target_link_libraries(nettest PRIVATE layout)
 target_link_libraries(nettest PRIVATE core)
 target_link_libraries(nettest PRIVATE net)
 target_compile_options(nettest PRIVATE -Wno-unused-but-set-variable)
