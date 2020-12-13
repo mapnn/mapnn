@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
-add_library(utils OBJECT)
-target_sources(utils PUBLIC  
+add_library(utils INTERFACE)
+target_sources(utils INTERFACE
         ${CMAKE_CURRENT_LIST_DIR}/bctime.h
         ${CMAKE_CURRENT_LIST_DIR}/hypothesis_test.h
         ${CMAKE_CURRENT_LIST_DIR}/kernel.h
@@ -14,8 +14,8 @@ target_sources(utils PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/ref.h
         ${CMAKE_CURRENT_LIST_DIR}/type.h
         )
-target_include_directories(utils PUBLIC ${CMAKE_CURRENT_LIST_DIR})
-target_link_libraries(utils PUBLIC flat)
+target_include_directories(utils INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+target_link_libraries(utils INTERFACE flat)
 if(CMAKE_SYSTEM_NAME MATCHES "^Android")
-    target_link_libraries(utils PUBLIC log)
+    target_link_libraries(utils INTERFACE log)
 endif()

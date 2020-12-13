@@ -1,7 +1,7 @@
 mapnn
 ---
 [![License](https://img.shields.io/badge/license-Apache2.0-blue)](https://github.com/mapnn/mapnn) 
-[![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-gcc.yml/badge.svg?branch=main&event=status)](https://github.com/mapnn/mapnn)
+[![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-gcc.yml/badge.svg?branch=master)](https://github.com/mapnn/mapnn)
 
 ## 1. Introduction
 
@@ -16,7 +16,7 @@ mapnn is designed to combine the strengths of different high-performance neutral
 
 | System         | armv7 | armv8 | x86 | amd64 |
 | :------------: | :---: | :---: | :--: | :--: |
-| Ubuntu(GCC)    | — | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-gcc.yml/badge.svg?branch=main&event=status) |
+| Ubuntu(GCC)    | — | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-gcc.yml/badge.svg?branch=master) |
 | Ubuntu(Clang)  | — | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Ubuntu-x64-clang.yml/badge.svg?branch=master) |
 | Linux          | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/linux-armv7l.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Linux-armv8.yml/badge.svg?branch=master) | — | — |
 | Windows(MSVC)  | — | — | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/Windows-x86-msvc.yml/badge.svg?branch=master) | ![Build Status](https://github.com/mapnn/mapnn/workflows/.github/workflows/windows-amd64-msvc.yml/badge.svg?branch=master) |
