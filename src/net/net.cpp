@@ -36,23 +36,23 @@ Net::~Net() {
     delete m_model_;
     delete m_graph_;
 }
-bool Net::load(const char* filepath, const char* filepath1) {
+int Net::load(const char* filepath, const char* filepath1) {
     if(m_model_) delete m_model_;
     m_model_ = new CaffeModel();
     return m_model_->load(filepath, filepath1);
 }
-bool Net::load(const char* filepath) {
+int Net::load(const char* filepath) {
     if(m_model_) delete m_model_;
     m_model_ = new OnnxModel();
     return m_model_->load(filepath);
 }
-bool Net::prepare(int channel, int height, int width) {
+int Net::prepare(int channel, int height, int width) {
     m_model_->draw(m_graph_);
     if(!channel||!height||!width) {
         channel_ = m_model_->c;
         height_  = m_model_->h;
         width_   = m_model_->w;
-    }   
+    }
     else {
         channel_ = channel;
         height_  = height;
@@ -94,16 +94,26 @@ bool Net::prepare(int channel, int height, int width) {
         BCTime tr("graph infer side load");
         m_graph_->inferSideRoad();
     }
-    return true;
+    return 0;
 }
-bool Net::inference(const float* data, int channel, int height, int width) {
-    if(channel != channel_ || height != height_ || width != width_) return false;
+int Net::inference(const float* data, int channel, int height, int width) {
+    if(channel != channel_ || height != height_ || width != width_) return -1;
     Tensor input(channel, height, width, FLOAT, data);
     {
         BCTime tr("graph infer main load");
         m_graph_->inferMainRoad(input);
     }
-    return true;
+    return 0;
+}
+
+int Net::channel() {
+    return channel_;
+}
+int Net::height() {
+    return height_;
+}
+int Net::width() {
+    return width_;
 }
 
 int Net::getTensorNum() {

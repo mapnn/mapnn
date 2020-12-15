@@ -35,12 +35,11 @@ void printHelp() {
             "Option:\n" 
             "       -m model\n"
             "       -i input image\n"
-            "       -o output tensor\n"
-            "       -s shape 3,224,224 \n"
-            "       -C cycle\n"
-            "       -e aveg [0,0,0]\n"
-            "       -v norms [1,1,1]\n"
-            "       -C cycle\n"
+            "       -o output tensor default to first tensor.\n"
+            "       -s shape of net, such as: 3,224,224 default to model shape. \n"
+            "       -C cycle of inference, default to 1.\n"
+            "       -a average of image, default to  0,0,0\n"
+            "       -n norms of image, default to 1,1,1\n"
             "       -h this help\n"
             );
 }
@@ -48,7 +47,7 @@ void printHelp() {
 int main(int argc, char** argv) {
 
     int opt;
-    const char *optstring = "m:d:i:e:v:s:o:C:h";
+    const char *optstring = "m:d:i:a:n:s:o:C:h";
 
     std::string img;
     std::string model;
@@ -75,10 +74,10 @@ int main(int argc, char** argv) {
             case 's':
                 sscanf(optarg, "%d,%d,%d", &C, &H, &W);
                 break;
-            case 'e': 
+            case 'a': 
                 sscanf(optarg, "%f,%f,%f", &er, &eg, &eb);
                 break;
-            case 'v': 
+            case 'n': 
                 sscanf(optarg, "%f,%f,%f", &vr, &vg, &vb);
                 break;
             case 'h': 
@@ -87,16 +86,11 @@ int main(int argc, char** argv) {
                 exit(0);
         }
     }
-    if(model.empty() || img.empty() || output_name.empty() || C==0 || H==0 || W==0) {
+    if(model.empty() || img.empty()) {
         printHelp();
         exit(-1);
     }
 
-    int width, height, channel;
-    unsigned char* input_data = stbi_load(img.c_str(), &width, &height, &channel, 3);
-    unsigned char* output_data = (unsigned char*)malloc(C* H* W);
-    stbir_resize_uint8(input_data, width, height, 0,
-            output_data, W, H, 0, C);
     std::string filename = model;
     std::string nfix = filename.substr(filename.find_last_of('.') + 1);
     std::string name = filename.substr(0, filename.find_last_of('.'));
@@ -119,12 +113,25 @@ int main(int argc, char** argv) {
         if(!ret) exit(-1);
     }
 
-    float* float_data = new float[C*H*W];
     { 
         BCTime tr("prepare net");
         net->prepare();
     }
 
+    if(!C||!H||!W) {
+        C = net->channel();        
+        H = net->height();        
+        W = net->width();        
+    }
+    printf("XXXXXXXXXXXXXXXXXX %d %d %d\n", C, H, W);
+
+
+    int width, height, channel;
+    unsigned char* input_data = stbi_load(img.c_str(), &width, &height, &channel, 3);
+    unsigned char* output_data = (unsigned char*)malloc(C* H* W);
+    stbir_resize_uint8(input_data, width, height, 0,
+            output_data, W, H, 0, C);
+    float* float_data = new float[C*H*W];
     const float means[3] = {er, eg, eb};
     const float norms[3] = {vr, vg, vb};
 
@@ -155,8 +162,13 @@ int main(int argc, char** argv) {
     for(int i = 0; i < cycle; i++) {
         net->inference(float_data, C, H, W);
     }
-    printf("%s\n", output_name.c_str());
-    Tensor output = net->getTensor(output_name.c_str());
+    Tensor output;
+    if(!output_name.empty()) {
+        output = net->getTensor(output_name.c_str());
+    }
+    else {
+        output = net->getTensor();
+    }
 
     float* data = output.data();
     int c_strip = output.v() * output.a();

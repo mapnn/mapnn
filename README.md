@@ -72,10 +72,10 @@ delete net;
 >        Copyright [yyyy] [name of copyright owner]
 >
 > * notice B: mapnn include some third party libraries as following:
->   [3rdparty/flatbuffers](3rdparty/flabuffers/LICENSE.txt)
->   [3rdparty/MNN](3rdparty/README.md)
->   [3rdparty/ncnn](3rdparty/ncnn/LICENSE.txt)
->   [3rdparty/protobuf](3rdparty/protobuf/LICENSE)
->   [3rdparty/stb](3rdparty/stb/LICENSE)
->   [3rdparty/Tengine](3rdparty/tengine/LICENSE)
+>   a. [3rdparty/flatbuffers](3rdparty/flabuffers/LICENSE.txt)
+>   b. [3rdparty/MNN](3rdparty/README.md)
+>   c. [3rdparty/ncnn](3rdparty/ncnn/LICENSE.txt)
+>   d. [3rdparty/protobuf](3rdparty/protobuf/LICENSE)
+>   e. [3rdparty/stb](3rdparty/stb/LICENSE)
+>   f. [3rdparty/Tengine](3rdparty/tengine/LICENSE)
 

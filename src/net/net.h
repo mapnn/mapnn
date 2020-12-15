@@ -31,12 +31,15 @@ private:
 public:
     Net();
     ~Net();
-    bool load(const char* filepath);
-    bool load(const char* filepath, const char* filepath1);
-    bool prepare(int channel=0, int height=0, int width=0);
-    bool inference(const float* data, int channle, int height, int width);
+    int load(const char* filepath);
+    int load(const char* filepath, const char* filepath1);
+    int prepare(int channel=0, int height=0, int width=0);
+    int inference(const float* data, int channle, int height, int width);
+    int channel();
+    int height();
+    int width();
     int getTensorNum();
-    const char*  getTensorName(int n);
+    const char* getTensorName(int n);
     Tensor getTensor(const char* name = NULL);
 };
 }

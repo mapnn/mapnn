@@ -23,10 +23,12 @@ endif()
 target_link_libraries(mapnn PRIVATE core)
 target_link_libraries(mapnn PRIVATE map)
 target_link_libraries(mapnn PRIVATE net)
-install(EXPORT mapnn DESTINATION lib/cmake)
-install(TARGETS mapnn EXPORT mapnn 
+target_include_directories(mapnn PRIVATE src)
+install(EXPORT MapNNConfig DESTINATION lib/cmake)
+install(TARGETS mapnn EXPORT MapNNConfig
     ARCHIVE DESTINATION lib
     RUNTIME DESTINATION lib
+    INCLUDES DESTINATION include
 )
 install(FILES 
     ${CMAKE_CURRENT_LIST_DIR}/net/net.h

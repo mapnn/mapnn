@@ -22,8 +22,8 @@ void printHelp() {
             "Usage: modeltest -d dir -i image\n"
             "     : modeltest -m model -i image [Option]\n"
             "Option:\n" 
-            "       -e aveg [0,0,0]\n"
-            "       -v norms [1,1,1]\n"
+            "       -a average 0,0,0\n"
+            "       -n norms 1,1,1\n"
             "       -C cycle\n"
             "       -h this help\n"
             );
@@ -31,7 +31,7 @@ void printHelp() {
 
 int main(int argc, char** argv) {
     int opt;
-    const char *optstring = "m:d:i:e:v:C:h";
+    const char *optstring = "m:d:i:a:n:C:h";
 
     std::string dir;
     std::string input;
@@ -54,10 +54,10 @@ int main(int argc, char** argv) {
             case 'C': 
                 cycle = atoi(optarg);
                 break;
-            case 'e': 
+            case 'a': 
                 sscanf(optarg, "%f,%f,%f", &er, &eg, &eb);
                 break;
-            case 'v': 
+            case 'n': 
                 sscanf(optarg, "%f,%f,%f", &vr, &vg, &vb);
                 break;
             case 'h': 
@@ -145,7 +145,6 @@ void classification(std::string model, std::string img, float mr, float mg, floa
         if(!ret) exit(-1);
     }
 
-    float* float_data = new float[3*224*224];
     { 
         BCTime tr("prepare net");
         net->prepare(3, 224, 224);
@@ -154,6 +153,7 @@ void classification(std::string model, std::string img, float mr, float mg, floa
         }
     }
 
+    float* float_data = new float[3*224*224];
     const float means[3] = {mr, mg, mb};
     const float norms[3] = {vr, vg, vb};
 
