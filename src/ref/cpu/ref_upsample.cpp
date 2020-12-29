@@ -28,8 +28,8 @@ void RefUpsample::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& 
     }
     if(!ins[1].empty() && ins[1].size() == 4) {
         L111W scale(ins[1]); 
-        output.h = scale.data[2];
-        output.w = scale.data[3];
+        output.h = input.h * scale.data[2];
+        output.w = input.w * scale.data[3];
     }
 }
 void RefUpsample::run(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& op) {

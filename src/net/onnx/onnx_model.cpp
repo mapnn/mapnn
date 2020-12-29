@@ -63,6 +63,17 @@ int OnnxModel::draw(Graph* graph) {
             std::string name2 = nodeP.input(j);
             graph->link(name2.c_str(), name1.c_str());
         }
+        if(nodeP.output_size() > 1 && nodeP.op_type() == "Split") {
+            for(int o = 1; o < nodeP.output_size(); o++) {
+                std::string name1 = nodeP.output(o);
+                for (int j=0; j < nodeP.input_size(); ++j) {
+                    std::string name2 = nodeP.input(j);
+                    Operator op(OpType_Slice);
+                    graph->link(name2.c_str(), name1.c_str());
+                }
+
+            }
+        }
     }
     return 0;
 }
@@ -647,6 +658,31 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             Operator op(OpType_Tan);
             graph->createNode(name, op);
         }
+        else if (op == "Split") {
+            int axis = 1;
+            std::vector<int> split; 
+            for (int i=0; i<node.attribute_size(); i++) {
+                const onnx::AttributeProto& attr = node.attribute(i);
+                if (attr.name() == "axis") {
+                    axis = attr.i();
+                }
+                else if (attr.name() == "split") {
+                    for(int i = 0; i < attr.ints_size(); i++) {
+                        split.push_back(attr.ints(0));
+                    }
+                }
+            }
+            int sum = 0;
+            for(int o = 0; o < node.output_size(); o++) {
+                Operator op(OpType_Slice);
+                op[Slice::AXIS].i = axis;
+                op[Slice::BEGIN].i = sum;
+                op[Slice::END].i = sum+split[o];
+                std::string name = node.output(o);
+                graph->createNode(name, op);
+            
+            }
+        }
         else if (op == "Transpose") {
             Operator op(OpType_Transpose);
             op[Transpose::NTO].i = 0;
@@ -683,6 +719,30 @@ int OnnxModel::create_operater_node_(Graph* graph) {
             }
             graph->createNode(name, op);
         }
+        else if (op == "ReduceMean") {
+            Operator op(OpType_ReduceMean);
+            op[Reduction::MODE].i       = Reduction::MEAN;
+            op[Reduction::KEEPDIMS].i   = 1;
+            op[Reduction::REDUCE_N].i   = 0;
+            op[Reduction::REDUCE_C].i   = 0;
+            op[Reduction::REDUCE_H].i   = 0;
+            op[Reduction::REDUCE_W].i   = 0;
+            for (int i=0; i<node.attribute_size(); i++) {
+                const onnx::AttributeProto& attr = node.attribute(i);
+                if (attr.name() == "axes") {
+                    for(int i = 0; i < attr.ints_size(); i++) {
+                        if(attr.ints(i) == 0) op[Reduction::REDUCE_N].i = 1;
+                        if(attr.ints(i) == 1) op[Reduction::REDUCE_C].i = 1;
+                        if(attr.ints(i) == 2) op[Reduction::REDUCE_H].i = 1;
+                        if(attr.ints(i) == 3) op[Reduction::REDUCE_W].i = 1;
+                    }
+                }
+                else if (attr.name() == "keepdims") {
+                    op[Reduction::KEEPDIMS].i = attr.i();
+                }
+            }
+            graph->createNode(name, op);
+        }
         else if (op == "Upsample") {
             Operator op(OpType_Upsample);
             op[Upsample::HEIGHT].i = 0;
@@ -713,6 +773,10 @@ int OnnxModel::create_operater_node_(Graph* graph) {
                     else if (attr.floats_size() == 3) {
                         op[Upsample::HEIGHT_SCALE].f = attr.floats(1);
                         op[Upsample::WIDTH_SCALE].f = attr.floats(2);
+                    }
+                    else if (attr.floats_size() == 4) {
+                        op[Upsample::HEIGHT_SCALE].f = attr.floats(2);
+                        op[Upsample::WIDTH_SCALE].f = attr.floats(3);
                     }
                     else {
                         LOGE("resize error scale size %d\n",attr.floats_size());

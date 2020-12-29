@@ -13,41 +13,39 @@
  * limitations under the License.
  */
 
-#ifndef __MAPNN_UPSAMPLE_H__
-#define __MAPNN_UPSAMPLE_H__
-
+#ifndef __MAPNN_PRELU_H__
+#define __MAPNN_PRELU_H__
 #include "operator.h"
 
 namespace mapnn {
-class Upsample {
+class Reduction {
 public:
-    enum UPSAMPLE_TYPE{
-        NEAREST         = 1,
-        BILINEAR        = 2,
-        BICUBIC         = 3,
+    enum OP_MODE{
+        MEAN        = 0,
+        MAX         = 1,
+        MIN         = 2,
+        SUM         = 3,
     };
     enum OP_TYPE {
-        HEIGHT          = 1,
-        WIDTH           = 2,
-        HEIGHT_SCALE    = 3,
-        WIDTH_SCALE     = 4,
-        UPSAMPLE_MODE     = 5,
-        PAD_MODE        = 6,
+        MODE        = 0,
+        KEEPDIMS    = 1,
+        REDUCE_N    = 2,
+        REDUCE_C    = 3,
+        REDUCE_H    = 4,
+        REDUCE_W    = 5,
     };
 public:
-    int height = 0, width = 0;
-    float height_scale = 0.f, width_scale = 0.f;
-    int resize_mode = 1;
-    int pad_mode   = 1;
-    Upsample(const Operator& op);
+    int mode;
+    int n, c, h ,w, keepdims;
+    Reduction(const Operator& op);
 };
-inline Upsample::Upsample(const Operator& op) {
-    height          = op[Upsample::HEIGHT].i;
-    width           = op[Upsample::WIDTH].i;
-    height_scale    = op[Upsample::HEIGHT_SCALE].f;
-    width_scale     = op[Upsample::WIDTH_SCALE].f;
-    resize_mode     = op[Upsample::UPSAMPLE_MODE].i;
-    pad_mode        = op[Upsample::PAD_MODE].i;
+inline Reduction::Reduction(const Operator& op){
+    mode        = op[MODE].i;
+    keepdims    = op[KEEPDIMS].i;
+    n           = op[REDUCE_N].i;
+    c           = op[REDUCE_C].i;
+    h           = op[REDUCE_H].i;
+    w           = op[REDUCE_W].i;
 }
 }
-#endif // __MAPNN_UPSAMPLE_H__
+#endif // __MAPNN_PRELU_H__

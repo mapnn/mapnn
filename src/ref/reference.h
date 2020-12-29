@@ -55,6 +55,9 @@ DECLARE_KERNEL(RefGemm)
 #include "pad.h"
 DECLARE_KERNEL(RefPad)
 
+#include "reduction.h"
+DECLARE_KERNEL(RefReduction)
+
 #include "reshape.h"
 DECLARE_KERNEL(RefReshape)
 

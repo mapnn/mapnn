@@ -57,6 +57,12 @@ void RefReshape::init(const Tensors& ins, Tensor& out, Tensors& tmp, Operator& o
                     output.h = shape[2];
                     output.w = input.n*input.c*input.h*input.w/shape[1]/shape[2];
                 }
+                else if(shape[0] == 1 && shape[1] == -1) {
+                    output.n = shape[0];
+                    output.c = input.chw/shape[2]/shape[3];
+                    output.h = shape[2];
+                    output.w = shape[3];
+                }
                 else {
                     output.n = shape[0];
                     output.c = shape[1];

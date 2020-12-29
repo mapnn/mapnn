@@ -123,8 +123,6 @@ int main(int argc, char** argv) {
         H = net->height();        
         W = net->width();        
     }
-    printf("XXXXXXXXXXXXXXXXXX %d %d %d\n", C, H, W);
-
 
     int width, height, channel;
     unsigned char* input_data = stbi_load(img.c_str(), &width, &height, &channel, 3);

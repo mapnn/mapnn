@@ -16,7 +16,7 @@
 #ifndef __MAPNN_TENSOR_H__
 #define __MAPNN_TENSOR_H__
 
-#ifdef _WIN64
+#ifdef _MSC_VER
 #define __DLL_EXPORTS__
 #ifdef __DLL_EXPORTS__
 #define MAPNN_EXPORT  __declspec(dllexport)
