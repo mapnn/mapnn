@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 # CMP0048 is related to letting CMake managing the package version for us
 
-if(NOT MSVC)
+if(MSVC)
+    add_definitions(/W2)
+else()
     add_definitions(-Wno-sign-compare)
     add_definitions(-Wno-strict-aliasing)
     add_definitions(-Wno-unused-variable)
