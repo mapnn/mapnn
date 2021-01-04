@@ -48,25 +48,21 @@ According to the step 4, Compiling and install this library with your toolchain.
 ```
 The following show some kernels benchmark(up picture) and corresponding accuracy(down picture).
 
-1. raspebery pi3B+ (right for conv3x3s1, left for conv3x3s2)
-<center class = "half">
-<img src = "doc/perf-conv3x3s1-arm32-pi3b+.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-arm32-pi3b+.jpg"  width = "50%" align = right>
-</center>
+* raspebery pi3B+ (right for conv3x3s1, left for conv3x3s2)
 
-2. SDM855 arm32 (right for conv3x3s1, left for conv3x3s2)
-<center class = "half">
-<img src = "doc/perf-conv3x3s1-arm32-SDM855.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-arm32-SDM855.jpg"  width = "50%" align = right>
-</center>
+<img src = "doc/perf-conv3x3s1-arm32-pi3b+.jpg"  width = "45%" ><img src = "doc/perf-conv3x3s2-arm32-pi3b+.jpg"  width = "45%" >
 
-3. SDM855 arm64 (right for conv3x3s1, left for conv3x3s2)
-<center class = "half">
-<img src = "doc/perf-conv3x3s1-arm64-SDM855.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-arm64-SDM855.jpg"  width = "50%" align = right>
-</center>
+* SDM855 arm32 (right for conv3x3s1, left for conv3x3s2)
 
-4. intel 10700k x86-64 (right for conv3x3s1, left for conv3x3s2)
-<center class = "half">
-<img src = "doc/perf-conv3x3s1-x64-10700k.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-x64-10700k.jpg"  width = "50%" align = right>
-</center>
+<img src = "doc/perf-conv3x3s1-arm32-SDM855.jpg"  width = "45%" ><img src = "doc/perf-conv3x3s2-arm32-SDM855.jpg"  width = "45%" >
+
+* SDM855 arm64 (right for conv3x3s1, left for conv3x3s2)
+
+<img src = "doc/perf-conv3x3s1-arm64-SDM855.jpg"  width = "45%" ><img src = "doc/perf-conv3x3s2-arm64-SDM855.jpg"  width = "45%" >
+
+* intel 10700k x86-64 (right for conv3x3s1, left for conv3x3s2)
+
+<img src = "doc/perf-conv3x3s1-x64-10700k.jpg"  width = "45%" ><img src = "doc/perf-conv3x3s2-x64-10700k.jpg"  width = "45%" >
 
 *node: This benchmark not means benchmark of different CNN frameworks.*
 
