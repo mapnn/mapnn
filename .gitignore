@@ -36,3 +36,7 @@
 *.dot
 *.png
 
+# models
+*.onnx
+*.prototxt
+*.caffemodel

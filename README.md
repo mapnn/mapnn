@@ -46,6 +46,29 @@ According to the step 4, Compiling and install this library with your toolchain.
 #       -o output INT
 #       -h this help
 ```
+The following show some kernels benchmark(up picture) and corresponding accuracy(down picture).
+
+1. raspebery pi3B+ (right for conv3x3s1, left for conv3x3s2)
+<center class = "half">
+<img src = "doc/perf-conv3x3s1-arm32-pi3b+.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-arm32-pi3b+.jpg"  width = "50%" align = right>
+</center>
+
+2. SDM855 arm32 (right for conv3x3s1, left for conv3x3s2)
+<center class = "half">
+<img src = "doc/perf-conv3x3s1-arm32-SDM855.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-arm32-SDM855.jpg"  width = "50%" align = right>
+</center>
+
+3. SDM855 arm64 (right for conv3x3s1, left for conv3x3s2)
+<center class = "half">
+<img src = "doc/perf-conv3x3s1-arm64-SDM855.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-arm64-SDM855.jpg"  width = "50%" align = right>
+</center>
+
+4. intel 10700k x86-64 (right for conv3x3s1, left for conv3x3s2)
+<center class = "half">
+<img src = "doc/perf-conv3x3s1-x64-10700k.jpg"  width = "50%" align = left><img src = "doc/perf-conv3x3s2-x64-10700k.jpg"  width = "50%" align = right>
+</center>
+
+*node: This benchmark not means benchmark of different CNN frameworks.*
 
 ## 6. How to use the API
 
@@ -72,10 +95,9 @@ delete net;
 >        Copyright [yyyy] [name of copyright owner]
 >
 > * notice B: mapnn include some third party libraries as following:
->   a. [3rdparty/flatbuffers](3rdparty/flabuffers/LICENSE.txt)
->   b. [3rdparty/MNN](3rdparty/README.md)
->   c. [3rdparty/ncnn](3rdparty/ncnn/LICENSE.txt)
->   d. [3rdparty/protobuf](3rdparty/protobuf/LICENSE)
->   e. [3rdparty/stb](3rdparty/stb/LICENSE)
->   f. [3rdparty/Tengine](3rdparty/tengine/LICENSE)
-
+>   * [3rdparty/flatbuffers](https://github.com/google/flatbuffers/blob/master/LICENSE.txt)
+>   * [3rdparty/MNN](https://github.com/alibaba/MNN/blob/master/README.md)
+>   * [3rdparty/ncnn](https://github.com/Tencent/ncnn/blob/master/LICENSE.txt)
+>   * [3rdparty/protobuf](https://github.com/protocolbuffers/protobuf/blob/master/LICENSE)
+>   * [3rdparty/stb](https://github.com/nothings/stb/blob/master/README.md)
+>   * [3rdparty/Tengine](https://github.com/OAID/Tengine/blob/master/LICENSE)
